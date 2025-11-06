@@ -31,24 +31,20 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTelaInicial));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.cadastrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cadastroDeAlunosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastroDeFuncináriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cadastroDeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastroDeModalidadesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastroDePlanosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pesquisaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pesquisaDeAlunosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pesquisaDeFuncionáriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pesquisaDeProfessoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pesquisaDeModalidadesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pesquisaDePlanosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.logoffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblUsuario = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtCPF = new System.Windows.Forms.TextBox();
-            this.logoffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -75,9 +71,7 @@
             // 
             this.cadastrosToolStripMenuItem.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.cadastrosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cadastroDeAlunosToolStripMenuItem,
             this.cadastroDeFuncináriosToolStripMenuItem,
-            this.cadastroDeToolStripMenuItem,
             this.cadastroDeModalidadesToolStripMenuItem,
             this.cadastroDePlanosToolStripMenuItem});
             this.cadastrosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -85,26 +79,12 @@
             this.cadastrosToolStripMenuItem.Size = new System.Drawing.Size(91, 38);
             this.cadastrosToolStripMenuItem.Text = "Cadastros";
             // 
-            // cadastroDeAlunosToolStripMenuItem
-            // 
-            this.cadastroDeAlunosToolStripMenuItem.Name = "cadastroDeAlunosToolStripMenuItem";
-            this.cadastroDeAlunosToolStripMenuItem.Size = new System.Drawing.Size(256, 26);
-            this.cadastroDeAlunosToolStripMenuItem.Text = "Cadastro de Alunos";
-            this.cadastroDeAlunosToolStripMenuItem.Click += new System.EventHandler(this.cadastroDeAlunosToolStripMenuItem_Click);
-            // 
             // cadastroDeFuncináriosToolStripMenuItem
             // 
             this.cadastroDeFuncináriosToolStripMenuItem.Name = "cadastroDeFuncináriosToolStripMenuItem";
             this.cadastroDeFuncináriosToolStripMenuItem.Size = new System.Drawing.Size(256, 26);
             this.cadastroDeFuncináriosToolStripMenuItem.Text = "Cadastro de Funcionários";
             this.cadastroDeFuncináriosToolStripMenuItem.Click += new System.EventHandler(this.cadastroDeFuncináriosToolStripMenuItem_Click);
-            // 
-            // cadastroDeToolStripMenuItem
-            // 
-            this.cadastroDeToolStripMenuItem.Name = "cadastroDeToolStripMenuItem";
-            this.cadastroDeToolStripMenuItem.Size = new System.Drawing.Size(256, 26);
-            this.cadastroDeToolStripMenuItem.Text = "Cadastro de Professores";
-            this.cadastroDeToolStripMenuItem.Click += new System.EventHandler(this.cadastroDeToolStripMenuItem_Click);
             // 
             // cadastroDeModalidadesToolStripMenuItem
             // 
@@ -124,9 +104,7 @@
             // 
             this.pesquisaToolStripMenuItem.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.pesquisaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pesquisaDeAlunosToolStripMenuItem,
             this.pesquisaDeFuncionáriosToolStripMenuItem,
-            this.pesquisaDeProfessoresToolStripMenuItem,
             this.pesquisaDeModalidadesToolStripMenuItem,
             this.pesquisaDePlanosToolStripMenuItem});
             this.pesquisaToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -136,26 +114,12 @@
             this.pesquisaToolStripMenuItem.Size = new System.Drawing.Size(93, 38);
             this.pesquisaToolStripMenuItem.Text = " Pesquisas";
             // 
-            // pesquisaDeAlunosToolStripMenuItem
-            // 
-            this.pesquisaDeAlunosToolStripMenuItem.Name = "pesquisaDeAlunosToolStripMenuItem";
-            this.pesquisaDeAlunosToolStripMenuItem.Size = new System.Drawing.Size(254, 26);
-            this.pesquisaDeAlunosToolStripMenuItem.Text = "Pesquisa de Alunos";
-            this.pesquisaDeAlunosToolStripMenuItem.Click += new System.EventHandler(this.pesquisaDeAlunosToolStripMenuItem_Click);
-            // 
             // pesquisaDeFuncionáriosToolStripMenuItem
             // 
             this.pesquisaDeFuncionáriosToolStripMenuItem.Name = "pesquisaDeFuncionáriosToolStripMenuItem";
             this.pesquisaDeFuncionáriosToolStripMenuItem.Size = new System.Drawing.Size(254, 26);
             this.pesquisaDeFuncionáriosToolStripMenuItem.Text = "Pesquisa de Funcionários";
             this.pesquisaDeFuncionáriosToolStripMenuItem.Click += new System.EventHandler(this.pesquisaDeFuncionáriosToolStripMenuItem_Click);
-            // 
-            // pesquisaDeProfessoresToolStripMenuItem
-            // 
-            this.pesquisaDeProfessoresToolStripMenuItem.Name = "pesquisaDeProfessoresToolStripMenuItem";
-            this.pesquisaDeProfessoresToolStripMenuItem.Size = new System.Drawing.Size(254, 26);
-            this.pesquisaDeProfessoresToolStripMenuItem.Text = "Pesquisa de Professores";
-            this.pesquisaDeProfessoresToolStripMenuItem.Click += new System.EventHandler(this.pesquisaDeProfessoresToolStripMenuItem_Click);
             // 
             // pesquisaDeModalidadesToolStripMenuItem
             // 
@@ -180,16 +144,27 @@
             this.sairToolStripMenuItem.Text = "Tela Pagamento";
             this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
             // 
+            // logoffToolStripMenuItem
+            // 
+            this.logoffToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.logoffToolStripMenuItem.Name = "logoffToolStripMenuItem";
+            this.logoffToolStripMenuItem.Size = new System.Drawing.Size(49, 38);
+            this.logoffToolStripMenuItem.Text = "Sair";
+            this.logoffToolStripMenuItem.Click += new System.EventHandler(this.logoffToolStripMenuItem_Click);
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.MistyRose;
+            this.pictureBox1.ErrorImage = null;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 45);
+            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(248, 81);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1173, 591);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.Size = new System.Drawing.Size(695, 554);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 156;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
@@ -237,19 +212,11 @@
             this.txtCPF.TabIndex = 158;
             this.txtCPF.Visible = false;
             // 
-            // logoffToolStripMenuItem
-            // 
-            this.logoffToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.logoffToolStripMenuItem.Name = "logoffToolStripMenuItem";
-            this.logoffToolStripMenuItem.Size = new System.Drawing.Size(67, 38);
-            this.logoffToolStripMenuItem.Text = "Logoff";
-            this.logoffToolStripMenuItem.Click += new System.EventHandler(this.logoffToolStripMenuItem_Click);
-            // 
             // frmTelaInicial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Gray;
+            this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(1173, 636);
             this.ControlBox = false;
             this.Controls.Add(this.txtCPF);
@@ -277,14 +244,10 @@
         #endregion
 		private System.Windows.Forms.MenuStrip menuStrip1;
 		private System.Windows.Forms.ToolStripMenuItem cadastrosToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem cadastroDeAlunosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem cadastroDeFuncináriosToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem cadastroDeToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem cadastroDeModalidadesToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem pesquisaToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem pesquisaDeAlunosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem pesquisaDeFuncionáriosToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem pesquisaDeProfessoresToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem pesquisaDePlanosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem pesquisaDeModalidadesToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem sairToolStripMenuItem;

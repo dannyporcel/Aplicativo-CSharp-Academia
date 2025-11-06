@@ -168,7 +168,6 @@ namespace Cadastro_de_Alunos
 		{
 			Close();
 		}
-
        
     }
 }

@@ -30,7 +30,6 @@
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Tela_Atendente));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.cadastroDeAlunosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pesquisasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logoffToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.logoffToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,7 +48,6 @@
             this.menuStrip1.AutoSize = false;
             this.menuStrip1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cadastroDeAlunosToolStripMenuItem,
             this.pesquisasToolStripMenuItem,
             this.logoffToolStripMenuItem,
             this.logoffToolStripMenuItem1});
@@ -58,14 +56,6 @@
             this.menuStrip1.Size = new System.Drawing.Size(1173, 42);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // cadastroDeAlunosToolStripMenuItem
-            // 
-            this.cadastroDeAlunosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.cadastroDeAlunosToolStripMenuItem.Name = "cadastroDeAlunosToolStripMenuItem";
-            this.cadastroDeAlunosToolStripMenuItem.Size = new System.Drawing.Size(176, 38);
-            this.cadastroDeAlunosToolStripMenuItem.Text = "Cadastrar Novo Aluno";
-            this.cadastroDeAlunosToolStripMenuItem.Click += new System.EventHandler(this.cadastroDeAlunosToolStripMenuItem_Click);
             // 
             // pesquisasToolStripMenuItem
             // 
@@ -87,8 +77,8 @@
             // 
             this.logoffToolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logoffToolStripMenuItem1.Name = "logoffToolStripMenuItem1";
-            this.logoffToolStripMenuItem1.Size = new System.Drawing.Size(67, 38);
-            this.logoffToolStripMenuItem1.Text = "Logoff";
+            this.logoffToolStripMenuItem1.Size = new System.Drawing.Size(49, 38);
+            this.logoffToolStripMenuItem1.Text = "Sair";
             this.logoffToolStripMenuItem1.Click += new System.EventHandler(this.logoffToolStripMenuItem1_Click);
             // 
             // pictureBox1
@@ -96,11 +86,12 @@
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.BackColor = System.Drawing.Color.Linen;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(0, 39);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(1173, 596);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 157;
             this.pictureBox1.TabStop = false;
             // 
@@ -177,7 +168,6 @@
 		#endregion
 
 		private System.Windows.Forms.MenuStrip menuStrip1;
-		private System.Windows.Forms.ToolStripMenuItem cadastroDeAlunosToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem pesquisasToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ToolStripMenuItem logoffToolStripMenuItem;

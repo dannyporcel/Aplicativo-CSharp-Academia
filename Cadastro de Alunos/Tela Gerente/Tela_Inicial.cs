@@ -20,12 +20,12 @@ namespace Cadastro_de_Alunos
             txtCPF.Text = CPF_Usuario;
 		}
 
-		private void cadastroDeAlunosToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Form Inicial = new frmTelaCadastroAluno();
-			Inicial.ShowDialog();
+		//private void cadastroDeAlunosToolStripMenuItem_Click(object sender, EventArgs e)
+		//{
+		//	Form Inicial = new frmTelaCadastroAluno();
+		//	Inicial.ShowDialog();
 			
-		}
+		//}
 
 		private void cadastroDeFuncináriosToolStripMenuItem_Click(object sender, EventArgs e)
 		{
@@ -135,5 +135,6 @@ namespace Cadastro_de_Alunos
             this.Hide();
 
         }
+
     }
 }
