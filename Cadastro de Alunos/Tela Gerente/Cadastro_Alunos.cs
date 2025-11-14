@@ -28,7 +28,7 @@ namespace Cadastro_de_Alunos
 		string Questionario10;
 		string Senha = "123";
         
-		SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BeMighty;User ID=sa;Password=etesp");/*copiando do appconfig*//*DESKTOP-1VUTL33*/
+		SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");/*copiando do appconfig*//*DESKTOP-1VUTL33*/
 		SqlCommand comando = new SqlCommand();/*instanciando*/
 
         public int CalculaIdade { get; private set; }

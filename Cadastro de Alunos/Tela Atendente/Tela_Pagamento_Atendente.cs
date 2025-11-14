@@ -14,7 +14,7 @@ namespace Cadastro_de_Alunos
 {
     public partial class Tela_Pagamento_Atendente : Form
     {
-        SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BeMighty;User ID=sa;Password=etesp");/*copiando do appconfig*//*DESKTOP-1VUTL33*/
+        SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=;User ID=sa;Password=etesp");/*copiando do appconfig*//*DESKTOP-1VUTL33*/
         SqlCommand comando = new SqlCommand();/*instanciando*/
         DataTable dt = new DataTable("tbl_Aluno");
         string data = DateTime.Now.ToShortDateString();
@@ -102,7 +102,7 @@ namespace Cadastro_de_Alunos
 
         private void lbPlanos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BeMighty;User ID=sa;Password=etesp");
+            SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");
 
             conn.Open();
             SqlCommand comando = conn.CreateCommand();

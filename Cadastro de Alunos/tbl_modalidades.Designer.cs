@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace Cadastro_de_Alunos {
+namespace Nexus_Desktop {
     
     
     /// <summary>

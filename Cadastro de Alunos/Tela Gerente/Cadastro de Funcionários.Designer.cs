@@ -45,12 +45,10 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.mskCpf = new System.Windows.Forms.MaskedTextBox();
             this.mskDataNascimento = new System.Windows.Forms.MaskedTextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbxSexo = new System.Windows.Forms.ComboBox();
-            this.txtRG = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pbFotoFunc = new System.Windows.Forms.PictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -60,13 +58,10 @@
             this.btnLimpar = new System.Windows.Forms.Button();
             this.btnCadastrar = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.txtDDD2 = new System.Windows.Forms.TextBox();
-            this.txtTelefone2 = new System.Windows.Forms.TextBox();
             this.txtDDD1 = new System.Windows.Forms.TextBox();
             this.txtTelefone = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.btnVoltar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -77,6 +72,11 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.btnSelecFoto = new System.Windows.Forms.Button();
             this.txtFotoLocal = new System.Windows.Forms.TextBox();
+            this.chkProfessor = new System.Windows.Forms.CheckBox();
+            this.lblCREF = new System.Windows.Forms.Label();
+            this.txtCREF = new System.Windows.Forms.TextBox();
+            this.gbPermissoesProfessor = new System.Windows.Forms.GroupBox();
+            this.chkAcessoWeb = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbFotoFunc)).BeginInit();
@@ -85,6 +85,7 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.groupBox5.SuspendLayout();
+            this.gbPermissoesProfessor.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbxUF
@@ -194,7 +195,6 @@
             this.txtNumero.Name = "txtNumero";
             this.txtNumero.Size = new System.Drawing.Size(50, 38);
             this.txtNumero.TabIndex = 27;
-            this.txtNumero.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumero_KeyPress);
             // 
             // txtBairro
             // 
@@ -241,19 +241,16 @@
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(391, 38);
             this.txtNome.TabIndex = 0;
-            this.txtNome.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNome_KeyPress);
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.mskCpf);
             this.groupBox1.Controls.Add(this.mskDataNascimento);
-            this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtNome);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.cbxSexo);
-            this.groupBox1.Controls.Add(this.txtRG);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(8, 48);
@@ -271,7 +268,6 @@
             this.mskCpf.Name = "mskCpf";
             this.mskCpf.Size = new System.Drawing.Size(200, 38);
             this.mskCpf.TabIndex = 15;
-            this.mskCpf.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.mskCpf_KeyPress);
             // 
             // mskDataNascimento
             // 
@@ -282,16 +278,6 @@
             this.mskDataNascimento.Size = new System.Drawing.Size(139, 38);
             this.mskDataNascimento.TabIndex = 20;
             this.mskDataNascimento.ValidatingType = typeof(System.DateTime);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(369, 89);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(78, 31);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "*RG:";
             // 
             // label4
             // 
@@ -336,16 +322,6 @@
             this.cbxSexo.Name = "cbxSexo";
             this.cbxSexo.Size = new System.Drawing.Size(172, 39);
             this.cbxSexo.TabIndex = 12;
-            // 
-            // txtRG
-            // 
-            this.txtRG.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRG.Location = new System.Drawing.Point(464, 82);
-            this.txtRG.MaxLength = 9;
-            this.txtRG.Name = "txtRG";
-            this.txtRG.Size = new System.Drawing.Size(140, 38);
-            this.txtRG.TabIndex = 17;
-            this.txtRG.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRG_KeyPress);
             // 
             // groupBox2
             // 
@@ -399,7 +375,6 @@
             this.txtCEP.Name = "txtCEP";
             this.txtCEP.Size = new System.Drawing.Size(217, 38);
             this.txtCEP.TabIndex = 23;
-            this.txtCEP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCEP_KeyPress);
             // 
             // label9
             // 
@@ -428,7 +403,7 @@
             this.btnLimpar.TabIndex = 138;
             this.btnLimpar.Text = "Limpar";
             this.btnLimpar.UseVisualStyleBackColor = true;
-            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click_1);
+            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
             // 
             // btnCadastrar
             // 
@@ -443,41 +418,18 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.txtDDD2);
-            this.groupBox4.Controls.Add(this.txtTelefone2);
             this.groupBox4.Controls.Add(this.txtDDD1);
             this.groupBox4.Controls.Add(this.txtTelefone);
             this.groupBox4.Controls.Add(this.txtEmail);
             this.groupBox4.Controls.Add(this.label6);
-            this.groupBox4.Controls.Add(this.label17);
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(8, 421);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(832, 156);
+            this.groupBox4.Size = new System.Drawing.Size(447, 156);
             this.groupBox4.TabIndex = 140;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Contatos:";
-            // 
-            // txtDDD2
-            // 
-            this.txtDDD2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDDD2.Location = new System.Drawing.Point(572, 19);
-            this.txtDDD2.MaxLength = 2;
-            this.txtDDD2.Name = "txtDDD2";
-            this.txtDDD2.Size = new System.Drawing.Size(44, 38);
-            this.txtDDD2.TabIndex = 50;
-            this.txtDDD2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
-            // 
-            // txtTelefone2
-            // 
-            this.txtTelefone2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTelefone2.Location = new System.Drawing.Point(638, 19);
-            this.txtTelefone2.MaxLength = 9;
-            this.txtTelefone2.Name = "txtTelefone2";
-            this.txtTelefone2.Size = new System.Drawing.Size(188, 38);
-            this.txtTelefone2.TabIndex = 55;
-            this.txtTelefone2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             // 
             // txtDDD1
             // 
@@ -487,7 +439,6 @@
             this.txtDDD1.Name = "txtDDD1";
             this.txtDDD1.Size = new System.Drawing.Size(44, 38);
             this.txtDDD1.TabIndex = 40;
-            this.txtDDD1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDDD1_KeyPress);
             // 
             // txtTelefone
             // 
@@ -497,36 +448,25 @@
             this.txtTelefone.Name = "txtTelefone";
             this.txtTelefone.Size = new System.Drawing.Size(180, 38);
             this.txtTelefone.TabIndex = 45;
-            this.txtTelefone.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefone_KeyPress);
             // 
             // txtEmail
             // 
             this.txtEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEmail.Location = new System.Drawing.Point(137, 101);
+            this.txtEmail.Location = new System.Drawing.Point(140, 72);
             this.txtEmail.MaxLength = 100;
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(377, 38);
+            this.txtEmail.Size = new System.Drawing.Size(277, 38);
             this.txtEmail.TabIndex = 60;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(33, 101);
+            this.label6.Location = new System.Drawing.Point(36, 72);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(98, 31);
             this.label6.TabIndex = 102;
             this.label6.Text = "E-Mail:";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(423, 22);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(143, 31);
-            this.label17.TabIndex = 39;
-            this.label17.Text = "Telefone2:";
             // 
             // label16
             // 
@@ -547,7 +487,7 @@
             this.btnVoltar.TabIndex = 141;
             this.btnVoltar.Text = "Voltar";
             this.btnVoltar.UseVisualStyleBackColor = true;
-            this.btnVoltar.Click += new System.EventHandler(this.btnVoltar_Click);
+            this.btnVoltar.Click += new System.EventHandler(this.btnVoltar_Click_1);
             // 
             // panel1
             // 
@@ -558,7 +498,7 @@
             this.panel1.ForeColor = System.Drawing.SystemColors.Control;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1173, 42);
+            this.panel1.Size = new System.Drawing.Size(1174, 42);
             this.panel1.TabIndex = 142;
             // 
             // pictureBox2
@@ -591,7 +531,6 @@
             this.rbGerente.TabIndex = 133;
             this.rbGerente.Text = "Gerente";
             this.rbGerente.UseVisualStyleBackColor = true;
-            this.rbGerente.CheckedChanged += new System.EventHandler(this.rbGerente_CheckedChanged);
             // 
             // rbAtendente
             // 
@@ -604,7 +543,6 @@
             this.rbAtendente.TabIndex = 132;
             this.rbAtendente.Text = "Atendente";
             this.rbAtendente.UseVisualStyleBackColor = false;
-            this.rbAtendente.CheckedChanged += new System.EventHandler(this.rbAtendente_CheckedChanged);
             // 
             // groupBox5
             // 
@@ -627,7 +565,6 @@
             this.btnSelecFoto.TabIndex = 143;
             this.btnSelecFoto.Text = "Selecionar Foto";
             this.btnSelecFoto.UseVisualStyleBackColor = true;
-            this.btnSelecFoto.Click += new System.EventHandler(this.btnSelecFoto_Click);
             // 
             // txtFotoLocal
             // 
@@ -638,12 +575,64 @@
             this.txtFotoLocal.Size = new System.Drawing.Size(304, 31);
             this.txtFotoLocal.TabIndex = 152;
             // 
+            // chkProfessor
+            // 
+            this.chkProfessor.AutoSize = true;
+            this.chkProfessor.Location = new System.Drawing.Point(496, 455);
+            this.chkProfessor.Name = "chkProfessor";
+            this.chkProfessor.Size = new System.Drawing.Size(85, 17);
+            this.chkProfessor.TabIndex = 153;
+            this.chkProfessor.Text = "É professor?";
+            this.chkProfessor.UseVisualStyleBackColor = true;
+            this.chkProfessor.CheckedChanged += new System.EventHandler(this.chkProfessor_CheckedChanged_1);
+            // 
+            // lblCREF
+            // 
+            this.lblCREF.AutoSize = true;
+            this.lblCREF.Location = new System.Drawing.Point(497, 480);
+            this.lblCREF.Name = "lblCREF";
+            this.lblCREF.Size = new System.Drawing.Size(84, 13);
+            this.lblCREF.TabIndex = 154;
+            this.lblCREF.Text = "Registro CREF:*";
+            // 
+            // txtCREF
+            // 
+            this.txtCREF.Location = new System.Drawing.Point(496, 505);
+            this.txtCREF.MaxLength = 10;
+            this.txtCREF.Name = "txtCREF";
+            this.txtCREF.Size = new System.Drawing.Size(100, 20);
+            this.txtCREF.TabIndex = 155;
+            // 
+            // gbPermissoesProfessor
+            // 
+            this.gbPermissoesProfessor.Controls.Add(this.chkAcessoWeb);
+            this.gbPermissoesProfessor.Location = new System.Drawing.Point(619, 457);
+            this.gbPermissoesProfessor.Name = "gbPermissoesProfessor";
+            this.gbPermissoesProfessor.Size = new System.Drawing.Size(201, 100);
+            this.gbPermissoesProfessor.TabIndex = 156;
+            this.gbPermissoesProfessor.TabStop = false;
+            this.gbPermissoesProfessor.Text = "Permissões Professor";
+            // 
+            // chkAcessoWeb
+            // 
+            this.chkAcessoWeb.AutoSize = true;
+            this.chkAcessoWeb.Location = new System.Drawing.Point(22, 36);
+            this.chkAcessoWeb.Name = "chkAcessoWeb";
+            this.chkAcessoWeb.Size = new System.Drawing.Size(142, 17);
+            this.chkAcessoWeb.TabIndex = 157;
+            this.chkAcessoWeb.Text = "Acesso ao Sistema Web";
+            this.chkAcessoWeb.UseVisualStyleBackColor = true;
+            // 
             // Cadastro_de_Funcionários
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1173, 636);
+            this.ClientSize = new System.Drawing.Size(1174, 661);
             this.ControlBox = false;
+            this.Controls.Add(this.gbPermissoesProfessor);
+            this.Controls.Add(this.txtCREF);
+            this.Controls.Add(this.lblCREF);
+            this.Controls.Add(this.chkProfessor);
             this.Controls.Add(this.txtFotoLocal);
             this.Controls.Add(this.btnSelecFoto);
             this.Controls.Add(this.panel1);
@@ -660,7 +649,6 @@
             this.Name = "Cadastro_de_Funcionários";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " ";
-            this.Load += new System.EventHandler(this.Cadastro_de_Funcionários_Load_1);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -674,6 +662,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.gbPermissoesProfessor.ResumeLayout(false);
+            this.gbPermissoesProfessor.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -695,12 +685,10 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.TextBox txtNome;
 		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.ComboBox cbxSexo;
-		private System.Windows.Forms.TextBox txtRG;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.GroupBox groupBox3;
 		private System.Windows.Forms.TextBox txtCEP;
@@ -711,7 +699,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
 		private System.Windows.Forms.MaskedTextBox mskDataNascimento;
 		private System.Windows.Forms.MaskedTextBox mskCpf;
@@ -720,13 +707,16 @@
         private System.Windows.Forms.RadioButton rbGerente;
         private System.Windows.Forms.RadioButton rbAtendente;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.TextBox txtDDD2;
-        private System.Windows.Forms.TextBox txtTelefone2;
         private System.Windows.Forms.TextBox txtDDD1;
         private System.Windows.Forms.TextBox txtTelefone;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnSelecFoto;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.TextBox txtFotoLocal;
-	}
+        private System.Windows.Forms.CheckBox chkProfessor;
+        private System.Windows.Forms.Label lblCREF;
+        private System.Windows.Forms.TextBox txtCREF;
+        private System.Windows.Forms.GroupBox gbPermissoesProfessor;
+        private System.Windows.Forms.CheckBox chkAcessoWeb;
+    }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Cadastro_de_Alunos.Properties {
+namespace Nexus_Desktop.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Cadastro_de_Alunos.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Cadastro_de_Alunos.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Nexus_Desktop.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,16 +57,6 @@ namespace Cadastro_de_Alunos.Properties {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap rhinoico {
-            get {
-                object obj = ResourceManager.GetObject("rhinoico", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

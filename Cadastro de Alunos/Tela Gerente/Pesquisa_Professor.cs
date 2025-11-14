@@ -48,7 +48,7 @@ namespace Cadastro_de_Alunos
                 dgPesquisaProf.DataSource = dv.ToTable();
             }
         }
-		SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=BeMighty;User ID=sa;Password=etesp");
+		SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");
 		SqlCommand command;
 		private void Pesquisa_Professor_Load(object sender, EventArgs e)
         {

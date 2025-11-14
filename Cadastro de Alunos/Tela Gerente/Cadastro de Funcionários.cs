@@ -1,362 +1,539 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-//
 using System.Data.SqlClient;
+using System.Drawing;
+using System.Globalization;
 using System.IO;
-
+using System.Windows.Forms;
 
 namespace Cadastro_de_Alunos
 {
     public partial class Cadastro_de_Funcionários : Form
     {
-        string data = DateTime.Now.ToShortDateString();
         string Perfil;
         string senha = "1234";
+        bool isProfessor = false;
 
-     SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BeMighty;User ID=sa;Password=etesp");
-     SqlCommand comando = new SqlCommand();/*instanciando*/
-     void carregaLista()
-     {
-            conn.Open();
-            comando.CommandText = "select * from tbl_Funcionario";
-            conn.Close();
-     }
+        SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");
+
         public Cadastro_de_Funcionários()
         {
             InitializeComponent();
+            ConfigurarVisibilidadeCamposProfessor();
+        }
+
+        private void ConfigurarVisibilidadeCamposProfessor()
+        {
+            lblCREF.Visible = false;
+            txtCREF.Visible = false;
+            gbPermissoesProfessor.Visible = false;
+        }
+
+        private DateTime? ValidarData(string dataTexto)
+        {
+            if (string.IsNullOrEmpty(dataTexto))
+                return null;
+
+            dataTexto = dataTexto.Replace("/", "").Trim();
+            if (dataTexto.Length != 8)
+                return null;
+
+            try
+            {
+                string dia = dataTexto.Substring(0, 2);
+                string mes = dataTexto.Substring(2, 2);
+                string ano = dataTexto.Substring(4, 4);
+
+                string dataFormatada = $"{dia}/{mes}/{ano}";
+                return DateTime.ParseExact(dataFormatada, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-			string validar = mskCpf.Text;
-			mskCpf.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-			mskDataNascimento.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+            // Validações básicas
+            if (!ValidarCamposObrigatorios())
+                return;
 
-            if (txtNome.Text == "")
+            try
+            {
+                byte[] imagebt = ProcessarFoto();
+                string cpfSemFormatacao = mskCpf.Text;
+
+                conn.Open();
+
+                // PASSO 1: Inserir na tbl_funcionarios
+                int idFuncionarioInserido = InserirFuncionario(cpfSemFormatacao, imagebt);
+
+                // PASSO 2: Se for professor, inserir na tbl_professor
+                if (isProfessor)
+                {
+                    InserirProfessor(idFuncionarioInserido, imagebt);
+                }
+
+                // PASSO 3: Inserir permissões
+                InserirPermissao(idFuncionarioInserido);
+
+                MessageBox.Show("Funcionário cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LimparCampos();
+                txtNome.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao cadastrar: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                    conn.Close();
+            }
+        }
+
+        // ADICIONADO: Método para validar todos os campos
+        private bool ValidarCamposObrigatorios()
+        {
+            mskCpf.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+            mskDataNascimento.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+
+            if (string.IsNullOrEmpty(txtNome.Text))
             {
                 MessageBox.Show("Informe o Nome", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 txtNome.Focus();
-				return;
+                return false;
             }
 
-            if (cbxSexo.Text == "")
+            if (string.IsNullOrEmpty(cbxSexo.Text))
             {
                 MessageBox.Show("Informe o Sexo", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 cbxSexo.Focus();
-                return;
+                return false;
             }
 
-            if (mskCpf.Text == "")
+            if (string.IsNullOrEmpty(mskCpf.Text))
             {
                 MessageBox.Show("Informe o CPF", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 mskCpf.Focus();
-				return;
+                return false;
             }
-			else
-			{
-				mskCpf.TextMaskFormat = MaskFormat.IncludePromptAndLiterals;
-				
-			}
-			if (CPF.ValidaCPF(validar))
-			{
-				//enviar dados para o banco
-			}
-			else
-			{
-				MessageBox.Show("CPF Inválido", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				mskCpf.Clear();
-				mskCpf.Focus();
-				return;
-			}
 
-            if(txtRG.Text == "")
+            if (!CPF.ValidaCPF(mskCpf.Text))
             {
-                MessageBox.Show("Informe o RG", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                txtRG.Focus();
-                return;
+                MessageBox.Show("CPF Inválido", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                mskCpf.Clear();
+                mskCpf.Focus();
+                return false;
             }
-            if (RG.ValidarRG(txtRG.Text))
-            {
 
-            }
-            else
+            DateTime? dataNascimento = ValidarData(mskDataNascimento.Text);
+            if (dataNascimento == null)
             {
-                MessageBox.Show("RG Inválido", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                txtRG.Clear();
-                txtRG.Focus();
-                return;
+                MessageBox.Show("Data de Nascimento inválida", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                mskDataNascimento.Clear();
+                mskDataNascimento.Focus();
+                return false;
             }
-			if (mskDataNascimento.Text=="")
-			{		
-				MessageBox.Show("Informe a Data de Nascimento", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				mskDataNascimento.Focus();
-				return;
-			}
-			if (Data.ValidaData(mskDataNascimento.Text))
-			{
 
-			}
-			else
-			{
-				MessageBox.Show("Data inválida", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				mskDataNascimento.Clear();
-				mskDataNascimento.Focus();
-				return;
-			}
-             if (txtCEP.Text == "")
+            if (string.IsNullOrEmpty(txtCEP.Text) ||
+                string.IsNullOrEmpty(txtLogradouro.Text) ||
+                string.IsNullOrEmpty(txtNumero.Text) ||
+                string.IsNullOrEmpty(cbxUF.Text) ||
+                string.IsNullOrEmpty(txtCidade.Text) ||
+                string.IsNullOrEmpty(txtDDD1.Text) ||
+                string.IsNullOrEmpty(txtTelefone.Text))
             {
-                MessageBox.Show("Informe o CEP !", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                txtCEP.Focus();
+                MessageBox.Show("Preencha todos os campos obrigatórios", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
             }
-            else if (txtLogradouro.Text == "")
+
+            if (!telefone.ValidaTelefone(txtTelefone.Text))
             {
-                MessageBox.Show("Informe o Logradouro", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                txtLogradouro.Focus();
-            }
-            else if (txtNumero.Text == "")
-            {
-                MessageBox.Show("Informe o Número", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                txtNumero.Focus();
-            }
-            else if (cbxUF.Text == "")
-            {
-                MessageBox.Show("Informe a UF", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                cbxUF.Focus();
-            }
-            else if (txtCidade.Text == "")
-            {
-                MessageBox.Show("Informe a Cidade", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                txtCidade.Focus();
-            }
-            else if (txtDDD1.Text == "")
-            {
-                MessageBox.Show("Informe o DDD", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                txtDDD1.Focus();
-            }
-             else if(txtTelefone.Text == "")
-            {
-                MessageBox.Show("Informe o Telefone", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("O número de telefone é inválido", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtTelefone.Clear();
                 txtTelefone.Focus();
-				return;
+                return false;
             }
-			if (telefone.ValidaTelefone(txtTelefone.Text))
-			{
 
-			}
-			else
-			{
-				MessageBox.Show("O número de telefone é inválido", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				txtTelefone.Clear();
-				txtTelefone.Focus();
-				return;
-			}
-            if (rbAtendente.Checked == false && rbGerente.Checked == false)
+            if (isProfessor && string.IsNullOrEmpty(txtCREF.Text))
+            {
+                MessageBox.Show("Informe o Registro CREF para professor", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtCREF.Focus();
+                return false;
+            }
+
+            if (isProfessor && !ValidarCREF(txtCREF.Text))
+            {
+                MessageBox.Show("CREF inválido", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                txtCREF.Focus();
+                return false;
+            }
+
+            if (!rbAtendente.Checked && !rbGerente.Checked && !isProfessor)
             {
                 MessageBox.Show("Selecione o Perfil de Acesso", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
             }
-            else
+
+            return true;
+        }
+
+        // CORRIGIDO: Método para inserir funcionário
+        private int InserirFuncionario(string cpfSemFormatacao, byte[] imagebt)
+        {
+            int proximoId = ObterProximoId("tbl_funcionarios", "id_funcionarios");
+            DateTime dataAtual = DateTime.Now;
+            DateTime dataNascimento = ValidarData(mskDataNascimento.Text).Value;
+
+            string insertFuncionario = @"INSERT INTO tbl_funcionarios (
+                id_funcionarios, nome, genero, cpf, data_nasc, rua, numero_endereco, 
+                bairro, cidade, uf, cep, complemento, dd1, telefone, 
+                email, cargo, data_cadastro, senha, foto, situacao, data_registro, 
+                data_inicio, data_alteracao, id_professor
+            ) VALUES (
+                @id_funcionarios, @nome, @genero, @cpf, @data_nasc, @rua, @numero_endereco,
+                @bairro, @cidade, @uf, @cep, @complemento, @dd1, @telefone,
+                @email, @cargo, @data_cadastro, @senha, @foto, @situacao, @data_registro, 
+                @data_inicio, @data_alteracao, @id_professor
+            )";
+
+            using (SqlCommand comando = new SqlCommand(insertFuncionario, conn))
+            {
+                // Parâmetros com tipos explícitos
+                comando.Parameters.Add("@id_funcionarios", SqlDbType.Int).Value = proximoId;
+                comando.Parameters.Add("@nome", SqlDbType.VarChar, 100).Value = txtNome.Text.Trim();
+                comando.Parameters.Add("@genero", SqlDbType.VarChar, 3).Value = cbxSexo.Text;
+
+                decimal cpfDecimal;
+                if (decimal.TryParse(cpfSemFormatacao, out cpfDecimal))
+                    comando.Parameters.Add("@cpf", SqlDbType.Decimal).Value = cpfDecimal;
+                else
+                    throw new Exception("CPF inválido");
+
+                comando.Parameters.Add("@data_nasc", SqlDbType.Date).Value = dataNascimento;
+                comando.Parameters.Add("@rua", SqlDbType.VarChar, 100).Value = txtLogradouro.Text.Trim();
+
+                decimal numeroDecimal;
+                if (decimal.TryParse(txtNumero.Text, out numeroDecimal))
+                    comando.Parameters.Add("@numero_endereco", SqlDbType.Decimal).Value = numeroDecimal;
+                else
+                    throw new Exception("Número inválido");
+
+                comando.Parameters.Add("@bairro", SqlDbType.VarChar, 50).Value = txtBairro.Text.Trim();
+                comando.Parameters.Add("@cidade", SqlDbType.VarChar, 50).Value = txtCidade.Text.Trim();
+                comando.Parameters.Add("@uf", SqlDbType.VarChar, 3).Value = cbxUF.Text;
+
+                decimal cepDecimal;
+                if (decimal.TryParse(txtCEP.Text, out cepDecimal))
+                    comando.Parameters.Add("@cep", SqlDbType.Decimal).Value = cepDecimal;
+                else
+                    throw new Exception("CEP inválido");
+
+                comando.Parameters.Add("@complemento", SqlDbType.VarChar, 100).Value = txtComplemento.Text.Trim() ?? "";
+
+                decimal dddDecimal;
+                if (decimal.TryParse(txtDDD1.Text, out dddDecimal))
+                    comando.Parameters.Add("@dd1", SqlDbType.Decimal).Value = dddDecimal;
+                else
+                    throw new Exception("DDD inválido");
+
+                decimal telefoneDecimal;
+                if (decimal.TryParse(txtTelefone.Text, out telefoneDecimal))
+                    comando.Parameters.Add("@telefone", SqlDbType.Decimal).Value = telefoneDecimal;
+                else
+                    throw new Exception("Telefone inválido");
+
+                comando.Parameters.Add("@email", SqlDbType.VarChar, 100).Value = txtEmail.Text.Trim();
+                comando.Parameters.Add("@cargo", SqlDbType.VarChar, 100).Value = Perfil;
+                comando.Parameters.Add("@data_cadastro", SqlDbType.DateTime).Value = dataAtual;
+
+                decimal senhaDecimal;
+                if (decimal.TryParse(senha, out senhaDecimal))
+                    comando.Parameters.Add("@senha", SqlDbType.Decimal).Value = senhaDecimal;
+                else
+                    comando.Parameters.Add("@senha", SqlDbType.Decimal).Value = 1234m;
+
+                // CORREÇÃO DO ERRO: Tratamento correto do varbinary
+                if (imagebt != null && imagebt.Length > 0)
+                    comando.Parameters.Add("@foto", SqlDbType.VarBinary, -1).Value = imagebt;
+                else
+                    comando.Parameters.Add("@foto", SqlDbType.VarBinary).Value = DBNull.Value;
+
+                comando.Parameters.Add("@situacao", SqlDbType.VarChar, 20).Value = "Ativo";
+                comando.Parameters.Add("@data_registro", SqlDbType.DateTime).Value = dataAtual;
+                comando.Parameters.Add("@data_inicio", SqlDbType.DateTime).Value = dataAtual;
+                comando.Parameters.Add("@data_alteracao", SqlDbType.DateTime).Value = dataAtual;
+                comando.Parameters.Add("@id_professor", SqlDbType.Int).Value = DBNull.Value;
+
+                comando.ExecuteNonQuery();
+                return proximoId;
+            }
+        }
+
+        // CORRIGIDO: Método para inserir professor
+        private void InserirProfessor(int idFuncionario, byte[] imagebt)
+        {
+            int proximoIdProfessor = ObterProximoId("tbl_professor", "id_professor");
+            DateTime dataAtual = DateTime.Now;
+            DateTime dataNascimento = ValidarData(mskDataNascimento.Text).Value;
+
+            string insertProfessor = @"INSERT INTO tbl_professor (
+                id_professor, foto, nome, nome_social, genero, email, senha, 
+                registro_cref, cpf, data_nasc, dd1, telefone, data_cadastro, 
+                data_inicio, data_alteracao, rua, numero_endereco, bairro, cep, 
+                cidade, uf, complemento, id_funcionarios
+            ) VALUES (
+                @id_professor, @foto, @nome, @nome_social, @genero, @email, @senha,
+                @registro_cref, @cpf, @data_nasc, @dd1, @telefone, @data_cadastro,
+                @data_inicio, @data_alteracao, @rua, @numero_endereco, @bairro, @cep,
+                @cidade, @uf, @complemento, @id_funcionarios
+            )";
+
+            using (SqlCommand cmdProfessor = new SqlCommand(insertProfessor, conn))
+            {
+                cmdProfessor.Parameters.Add("@id_professor", SqlDbType.Int).Value = proximoIdProfessor;
+
+                // CORREÇÃO DO ERRO: Tratamento correto do varbinary
+                if (imagebt != null && imagebt.Length > 0)
+                    cmdProfessor.Parameters.Add("@foto", SqlDbType.VarBinary, -1).Value = imagebt;
+                else
+                    cmdProfessor.Parameters.Add("@foto", SqlDbType.VarBinary).Value = DBNull.Value;
+
+                cmdProfessor.Parameters.Add("@nome", SqlDbType.VarChar, 100).Value = txtNome.Text.Trim();
+                cmdProfessor.Parameters.Add("@nome_social", SqlDbType.VarChar, 100).Value = DBNull.Value;
+                cmdProfessor.Parameters.Add("@genero", SqlDbType.VarChar, 3).Value = cbxSexo.Text;
+                cmdProfessor.Parameters.Add("@email", SqlDbType.VarChar, 100).Value = txtEmail.Text.Trim();
+                cmdProfessor.Parameters.Add("@senha", SqlDbType.VarChar, 255).Value = "prof123";
+
+                decimal crefDecimal;
+                if (decimal.TryParse(txtCREF.Text, out crefDecimal))
+                    cmdProfessor.Parameters.Add("@registro_cref", SqlDbType.Decimal).Value = crefDecimal;
+                else
+                    throw new Exception("CREF inválido");
+
+                decimal cpfDecimal;
+                if (decimal.TryParse(mskCpf.Text, out cpfDecimal))
+                    cmdProfessor.Parameters.Add("@cpf", SqlDbType.Decimal).Value = cpfDecimal;
+
+                cmdProfessor.Parameters.Add("@data_nasc", SqlDbType.Date).Value = dataNascimento;
+
+                decimal dddDecimal;
+                if (decimal.TryParse(txtDDD1.Text, out dddDecimal))
+                    cmdProfessor.Parameters.Add("@dd1", SqlDbType.Decimal).Value = dddDecimal;
+
+                decimal telefoneDecimal;
+                if (decimal.TryParse(txtTelefone.Text, out telefoneDecimal))
+                    cmdProfessor.Parameters.Add("@telefone", SqlDbType.Decimal).Value = telefoneDecimal;
+
+                cmdProfessor.Parameters.Add("@data_cadastro", SqlDbType.DateTime).Value = dataAtual;
+                cmdProfessor.Parameters.Add("@data_inicio", SqlDbType.DateTime).Value = dataAtual;
+                cmdProfessor.Parameters.Add("@data_alteracao", SqlDbType.DateTime).Value = dataAtual;
+                cmdProfessor.Parameters.Add("@rua", SqlDbType.VarChar, 100).Value = txtLogradouro.Text.Trim();
+
+                decimal numeroDecimal;
+                if (decimal.TryParse(txtNumero.Text, out numeroDecimal))
+                    cmdProfessor.Parameters.Add("@numero_endereco", SqlDbType.Decimal).Value = numeroDecimal;
+
+                cmdProfessor.Parameters.Add("@bairro", SqlDbType.VarChar, 50).Value = txtBairro.Text.Trim();
+
+                decimal cepDecimal;
+                if (decimal.TryParse(txtCEP.Text, out cepDecimal))
+                    cmdProfessor.Parameters.Add("@cep", SqlDbType.Decimal).Value = cepDecimal;
+
+                cmdProfessor.Parameters.Add("@cidade", SqlDbType.VarChar, 50).Value = txtCidade.Text.Trim();
+                cmdProfessor.Parameters.Add("@uf", SqlDbType.VarChar, 3).Value = cbxUF.Text;
+                cmdProfessor.Parameters.Add("@complemento", SqlDbType.VarChar, 100).Value = txtComplemento.Text.Trim() ?? "";
+                cmdProfessor.Parameters.Add("@id_funcionarios", SqlDbType.Int).Value = idFuncionario;
+
+                cmdProfessor.ExecuteNonQuery();
+
+                // Atualizar funcionário com o id_professor
+                string updateFuncionario = "UPDATE tbl_funcionarios SET id_professor = @id_professor WHERE id_funcionarios = @id_funcionarios";
+                using (SqlCommand cmdUpdate = new SqlCommand(updateFuncionario, conn))
+                {
+                    cmdUpdate.Parameters.Add("@id_professor", SqlDbType.Int).Value = proximoIdProfessor;
+                    cmdUpdate.Parameters.Add("@id_funcionarios", SqlDbType.Int).Value = idFuncionario;
+                    cmdUpdate.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private void InserirPermissao(int idFuncionario)
+        {
+            int proximoIdPermissao = ObterProximoId("tbl_permissao", "id_permissao");
+            DateTime dataAtual = DateTime.Now;
+
+            string tipoPermissao = "";
+            string descricao = "";
+
+            if (isProfessor)
+            {
+                tipoPermissao = "Acesso Professor";
+                descricao = "Acesso ao sistema web para professores";
+            }
+            else if (Perfil == "Gerente")
+            {
+                tipoPermissao = "Acesso Total";
+                descricao = "Acesso completo ao sistema";
+            }
+            else if (Perfil == "Recepcionista")
+            {
+                tipoPermissao = "Acesso Limitado";
+                descricao = "Acesso ao cadastro e consulta";
+            }
+
+            string insertPermissao = @"INSERT INTO tbl_permissao (
+                id_permissao, nome_funcionario, tipo_permissao, descricao, 
+                dataPermissao, id_funcionarios
+            ) VALUES (
+                @id_permissao, @nome_funcionario, @tipo_permissao, @descricao,
+                @dataPermissao, @id_funcionarios
+            )";
+
+            using (SqlCommand cmdPermissao = new SqlCommand(insertPermissao, conn))
+            {
+                cmdPermissao.Parameters.Add("@id_permissao", SqlDbType.Int).Value = proximoIdPermissao;
+                cmdPermissao.Parameters.Add("@nome_funcionario", SqlDbType.VarChar, 100).Value = txtNome.Text.Trim();
+                cmdPermissao.Parameters.Add("@tipo_permissao", SqlDbType.VarChar, 50).Value = tipoPermissao;
+                cmdPermissao.Parameters.Add("@descricao", SqlDbType.VarChar, 50).Value = descricao;
+                cmdPermissao.Parameters.Add("@dataPermissao", SqlDbType.DateTime).Value = dataAtual;
+                cmdPermissao.Parameters.Add("@id_funcionarios", SqlDbType.Int).Value = idFuncionario;
+
+                cmdPermissao.ExecuteNonQuery();
+            }
+        }
+
+        private int ObterProximoId(string tabela, string campoId)
+        {
+            try
+            {
+                string query = $"SELECT ISNULL(MAX({campoId}), 0) + 1 FROM {tabela}";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    return Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao obter próximo ID para {tabela}: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 1;
+            }
+        }
+
+        private bool ValidarCREF(string cref)
+        {
+            if (string.IsNullOrEmpty(cref))
+                return false;
+
+            if (cref.Length < 6 || cref.Length > 10)
+                return false;
+
+            return decimal.TryParse(cref, out _);
+        }
+
+        private byte[] ProcessarFoto()
+        {
+            byte[] imagebt = null;
+            if (!string.IsNullOrEmpty(txtFotoLocal.Text) && File.Exists(txtFotoLocal.Text))
             {
                 try
                 {
-                    //
-                    byte[] imagebt = null;
-                    FileStream fstream = new FileStream(this.txtFotoLocal.Text, FileMode.Open, FileAccess.Read);
-                    BinaryReader br = new BinaryReader(fstream);
-                    imagebt = br.ReadBytes((int)fstream.Length);
-                    //
-                    string teste = mskCpf.Text;
-                    mskCpf.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals; // tira a formatação
-                    string cpf1 = mskCpf.Text;
-                    // 				
-                    mskDataNascimento.TextMaskFormat = MaskFormat.IncludePromptAndLiterals;
-                    //
-                    conn.Open();/*abrindo base de dados*/
-                    comando.Parameters.Add(new SqlParameter("@IMG", imagebt));
-                    comando.CommandText = "insert into tbl_Funcionario(nomeFuncionario,Sexo,Logradouro,numEndereco,UF,Cidade,telefone,RG,CEP,Bairro,Email,Complemento,CPF,DDD1,DDD2,Telefone_2,Cargo,dataNasc,dataCadastro,Senha,Foto) values ('"
-                        + txtNome.Text + "','" + cbxSexo.Text + "','" + txtLogradouro.Text + "','" + txtNumero.Text + "','"
-                        + cbxUF.Text + "','" + txtCidade.Text + "','" + txtTelefone.Text + "','" + txtRG.Text + "','"
-                        + txtCEP.Text + "','" + txtBairro.Text + "','" + txtEmail.Text + "','" + txtComplemento.Text + "','"
-                        + cpf1 + "','" + txtDDD1.Text + "','" + txtDDD2.Text + "','" + txtTelefone2.Text + "','" + Perfil + "','"
-                        + Convert.ToDateTime(mskDataNascimento.Text) + "','"+data+"','" + senha + "',@IMG)";
-                    comando.ExecuteNonQuery();/*executando bd*/
-
-                    conn.Close();/*fechar bd*/
-                                 //
-                    carregaLista();
-                    txtNome.Clear();
-                    cbxSexo.ResetText();
-                    txtLogradouro.Clear();
-                    txtNumero.Clear();
-                    cbxUF.ResetText();
-                    txtCidade.Clear();
-                    txtTelefone.Clear();
-                    txtComplemento.Clear();
-                    txtRG.Clear();
-                    mskCpf.Clear();
-                    txtCEP.Clear();
-                    txtBairro.Clear();
-                    txtEmail.Clear();
-                    txtDDD1.Clear();
-                    txtDDD2.Clear();
-                    mskDataNascimento.Clear();
-                    pbFotoFunc.Image = null;
-                    rbAtendente.Checked = false;
-                    rbGerente.Checked = false;
-                    txtTelefone2.Clear();
-                    txtFotoLocal.Clear();
-                    cbxSexo.SelectedIndex = -1;
-                    cbxUF.SelectedIndex = -1;
-                   
-                    
-
-                    MessageBox.Show("Dados Cadastrados !", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    txtNome.Focus();
+                    using (FileStream fstream = new FileStream(txtFotoLocal.Text, FileMode.Open, FileAccess.Read))
+                    {
+                        imagebt = new byte[fstream.Length];
+                        fstream.Read(imagebt, 0, (int)fstream.Length);
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Erro ao carregar a foto: " + ex.Message, "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+            return imagebt;
         }
-       
 
-		private void btnVoltar_Click(object sender, EventArgs e)
-		{
+        private void chkProfessor_CheckedChanged_1(object sender, EventArgs e)
+        {
+            isProfessor = chkProfessor.Checked;
+            lblCREF.Visible = isProfessor;
+            txtCREF.Visible = isProfessor;
+            gbPermissoesProfessor.Visible = isProfessor;
+
+            if (isProfessor)
+            {
+                Perfil = "Professor";
+                rbAtendente.Checked = false;
+                rbGerente.Checked = false;
+            }
+        }
+
+        private void LimparCampos()
+        {
+            txtNome.Clear();
+            cbxSexo.SelectedIndex = -1;
+            txtLogradouro.Clear();
+            txtNumero.Clear();
+            cbxUF.SelectedIndex = -1;
+            txtCidade.Clear();
+            txtTelefone.Clear();
+            txtComplemento.Clear();
+            mskCpf.Clear();
+            txtCEP.Clear();
+            txtBairro.Clear();
+            txtEmail.Clear();
+            txtDDD1.Clear();
+            mskDataNascimento.Clear();
+            pbFotoFunc.Image = null;
+            rbAtendente.Checked = false;
+            rbGerente.Checked = false;
+            txtFotoLocal.Clear();
+            chkProfessor.Checked = false;
+            txtCREF.Clear();
+        }
+
+        // Outros métodos existentes (btnVoltar, btnLimpar, etc.)
+        private void btnVoltar_Click(object sender, EventArgs e)
+        {
             Close();
-		}
-
-        private void txtNome_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (char.IsNumber(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar)) e.Handled = true;
-        }
-
-        private void mskCpf_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar)) e.Handled = true;
-        }
-
-        private void txtCEP_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar)) e.Handled = true;
-        }
-
-        private void txtNumero_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar)) e.Handled = true;
-        }
-
-        private void txtDDD1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar)) e.Handled = true;
-        }
-
-        private void txtTelefone_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar)) e.Handled = true;
-        }
-
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar)) e.Handled = true;
-        }
-
-        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar)) e.Handled = true;
-        }
-
-        private void txtRG_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar)) e.Handled = true;
         }
 
         private void btnLimpar_Click_1(object sender, EventArgs e)
         {
-                       txtNome.Clear();
-                       mskCpf.Clear();
-                       cbxSexo.ResetText();
-                       txtRG.Clear();
-                       txtCEP.Clear();
-                       txtLogradouro.Clear();
-                       txtNumero.Clear();
-                       txtBairro.Clear();
-                       txtComplemento.Clear();
-                       cbxUF.ResetText();           
-                       txtEmail.Clear();                                   
-                       txtCidade.Clear();                       
-                       txtNome.Focus();
-                       pbFotoFunc.Image = null;
-                       txtDDD1.Clear();
-                       txtDDD2.Clear();
-                       mskDataNascimento.Clear();
-                       pbFotoFunc.Image = null;
-                       rbAtendente.Checked = false;
-                       rbGerente.Checked = false;
-                       txtTelefone.Clear();
-                       txtTelefone2.Clear();
-                       txtFotoLocal.Clear();
-                       cbxSexo.SelectedIndex = -1;
-                       cbxUF.SelectedIndex = -1;
+            LimparCampos();
+            txtNome.Focus();
         }
 
         private void btnSelecFoto_Click(object sender, EventArgs e)
         {
             OpenFileDialog img = new OpenFileDialog();
+            img.InitialDirectory = "c:\\";
+            img.Filter = "Imagens|*.jpg;*.jpeg;*.png;*.bmp|Todos os arquivos|*.*";
 
-            img.InitialDirectory = "c:\\";/*qual diretório ?*/
-            img.Filter = "JPG(*.JPG)|*.jpg";/*tipo de arquivo ?*/
             if (img.ShowDialog() == DialogResult.OK)
             {
-                string picpath = img.FileName.ToString();
-                txtFotoLocal.Text = picpath;
-                pbFotoFunc.ImageLocation = picpath;
+                try
+                {
+                    string picpath = img.FileName;
+                    txtFotoLocal.Text = picpath;
+                    pbFotoFunc.Image = Image.FromFile(picpath);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao carregar imagem: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
-        
-       
 
-        private void pbFotoFunc_Click(object sender, EventArgs e)
+        private void btnLimpar_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void groupBox2_Enter(object sender, EventArgs e)
+        private void btnVoltar_Click_1(object sender, EventArgs e)
         {
-
-        }
-
-        private void groupBox5_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Cadastro_de_Funcionários_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void rbAtendente_CheckedChanged(object sender, EventArgs e)
-        {
-            Perfil = "Atendente";
-        }
-
-        private void rbGerente_CheckedChanged(object sender, EventArgs e)
-        {
-            Perfil = "Gerente";
-        }
-
-        private void Cadastro_de_Funcionários_Load_1(object sender, EventArgs e)
-        {
-            comando.Connection = conn;/*abertura de BD*//*usar try catch p/solucao de erro conect bd*/
-            carregaLista();
+            Close();
         }
     }
 }

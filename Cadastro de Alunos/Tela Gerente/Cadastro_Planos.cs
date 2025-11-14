@@ -17,7 +17,7 @@ namespace Cadastro_de_Alunos
     {
         string data = DateTime.Now.ToShortDateString();
      
-        SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BeMighty;User ID=sa;Password=etesp");/*copiando do appconfig*//*DESKTOP-1VUTL33*/
+        SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");/*copiando do appconfig*//*DESKTOP-1VUTL33*/
         SqlCommand comando = new SqlCommand();/*instanciando*/
 
         void carregaLista()
@@ -155,7 +155,7 @@ namespace Cadastro_de_Alunos
         private void lbModalidades_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-           /* SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BeMighty;User ID=sa;Password=etesp");
+           /* SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");
 
             conn.Open();
             SqlCommand comando = conn.CreateCommand();
@@ -178,7 +178,7 @@ namespace Cadastro_de_Alunos
 
         private void lbDescricao_KeyPress(object sender, KeyPressEventArgs e)
         {
-            /*SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BeMighty;User ID=sa;Password=etesp");
+            /*SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");
 
             conn.Open();
             SqlCommand comando = conn.CreateCommand();
@@ -197,7 +197,7 @@ namespace Cadastro_de_Alunos
 
         private void lbDescricao_ControlAdded(object sender, ControlEventArgs e)
         {
-          /*  SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BeMighty;User ID=sa;Password=etesp");
+          /*  SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");
 
             conn.Open();
             SqlCommand comando = conn.CreateCommand();
@@ -216,7 +216,7 @@ namespace Cadastro_de_Alunos
 
         private void lbDescricao_Layout(object sender, LayoutEventArgs e)
         {
-           /* SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BeMighty;User ID=sa;Password=etesp");
+           /* SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");
 
             conn.Open();
             SqlCommand comando = conn.CreateCommand();

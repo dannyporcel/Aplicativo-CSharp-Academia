@@ -35,7 +35,7 @@ namespace Cadastro_de_Alunos
         {
             InitializeComponent();
         }
-		SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=BeMighty;User ID=sa;Password=etesp");
+		SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");
 		SqlCommand command;
 		DataTable dt = new DataTable("tbl_Aluno");
 

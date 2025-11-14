@@ -46,8 +46,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtValorTotal = new System.Windows.Forms.TextBox();
             this.btnVoltar = new System.Windows.Forms.Button();
-            this.beMightyDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.beMightyDataSet = new Cadastro_de_Alunos.BeMightyDataSet();
+            this.BD_NexusDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.txtNome_Plano = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtObservacao = new System.Windows.Forms.TextBox();
@@ -57,8 +56,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.beMightyDataSetBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.beMightyDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BD_NexusDataSetBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -227,16 +225,13 @@
             this.btnVoltar.UseVisualStyleBackColor = true;
             this.btnVoltar.Click += new System.EventHandler(this.btnVoltar_Click);
             // 
-            // beMightyDataSetBindingSource
+            // BD_NexusDataSetBindingSource
             // 
-            this.beMightyDataSetBindingSource.DataSource = this.beMightyDataSet;
-            this.beMightyDataSetBindingSource.Position = 0;
+            this.BD_NexusDataSetBindingSource.Position = 0;
             // 
-            // beMightyDataSet
+            // BD_NexusDataSet
             // 
-            this.beMightyDataSet.DataSetName = "BeMightyDataSet";
-            this.beMightyDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
+            
             // txtNome_Plano
             // 
             this.txtNome_Plano.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -303,8 +298,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.beMightyDataSetBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.beMightyDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BD_NexusDataSetBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -324,8 +318,7 @@
         private System.Windows.Forms.Button btnVoltar;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.BindingSource beMightyDataSetBindingSource;
-        private BeMightyDataSet beMightyDataSet;
+        private System.Windows.Forms.BindingSource BD_NexusDataSetBindingSource;
 		private System.Windows.Forms.ListBox lbDescricao;
 		private System.Windows.Forms.ListBox lbModalidades;
         private System.Windows.Forms.PictureBox pictureBox3;

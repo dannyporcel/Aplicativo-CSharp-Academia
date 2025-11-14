@@ -14,7 +14,7 @@ namespace Cadastro_de_Alunos
     public partial class Cadastro_Modalidades : Form
     {
         string data = DateTime.Now.ToShortDateString();
-        SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BeMighty;User ID=sa;Password=etesp");
+        SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");
         SqlCommand comando = new SqlCommand();/*instanciando*/
         void carregaLista()
         {

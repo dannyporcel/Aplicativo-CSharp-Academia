@@ -13,7 +13,7 @@ namespace Cadastro_de_Alunos
 {
 	public partial class Tela_Atendente : Form
 	{
-        SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BeMighty;User ID=sa;Password=etesp");
+        SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");
         SqlCommand comando = new SqlCommand();/*instanciando*/
         void carregaLista()
         {
@@ -49,7 +49,7 @@ namespace Cadastro_de_Alunos
             int h = Screen.PrimaryScreen.Bounds.Height;
             this.Location = new Point(0, -1);
             this.Size = new Size(w, h);
-            SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BeMighty;User ID=sa;Password=etesp");
+            SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");
 
             conn.Open();
             SqlCommand comando = conn.CreateCommand();

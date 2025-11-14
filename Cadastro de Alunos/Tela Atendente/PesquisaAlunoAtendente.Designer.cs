@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PesquisaAlunoAtendente));
             this.txtID = new System.Windows.Forms.TextBox();
             this.pnlEditar = new System.Windows.Forms.Panel();
-            this.btnEditar = new System.Windows.Forms.Button();
             this.btnLimpar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -111,7 +110,6 @@
             // 
             // pnlEditar
             // 
-            this.pnlEditar.Controls.Add(this.btnEditar);
             this.pnlEditar.Controls.Add(this.btnLimpar);
             this.pnlEditar.Controls.Add(this.btnCancelar);
             this.pnlEditar.Controls.Add(this.groupBox2);
@@ -124,17 +122,6 @@
             this.pnlEditar.Name = "pnlEditar";
             this.pnlEditar.Size = new System.Drawing.Size(875, 446);
             this.pnlEditar.TabIndex = 169;
-            // 
-            // btnEditar
-            // 
-            this.btnEditar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditar.Location = new System.Drawing.Point(740, 160);
-            this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(80, 31);
-            this.btnEditar.TabIndex = 173;
-            this.btnEditar.Text = "Editar";
-            this.btnEditar.UseVisualStyleBackColor = true;
-            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             // 
             // btnLimpar
             // 
@@ -841,7 +828,6 @@
         #endregion
         private System.Windows.Forms.TextBox txtID;
         private System.Windows.Forms.Panel pnlEditar;
-        private System.Windows.Forms.Button btnEditar;
         private System.Windows.Forms.Button btnLimpar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.GroupBox groupBox2;

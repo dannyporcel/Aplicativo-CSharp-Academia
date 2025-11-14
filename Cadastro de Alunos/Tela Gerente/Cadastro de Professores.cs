@@ -19,7 +19,7 @@ namespace Cadastro_de_Alunos
     {
         string data = DateTime.Now.ToShortDateString();
         string Senha = "1234"; 
-        SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BeMighty;User ID=sa;Password=etesp");
+        SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");
         SqlCommand comando = new SqlCommand();/*instanciando*/
         void carregaLista()
         {
