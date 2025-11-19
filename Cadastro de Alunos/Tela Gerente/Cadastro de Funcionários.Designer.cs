@@ -565,6 +565,7 @@
             this.btnSelecFoto.TabIndex = 143;
             this.btnSelecFoto.Text = "Selecionar Foto";
             this.btnSelecFoto.UseVisualStyleBackColor = true;
+            this.btnSelecFoto.Click += new System.EventHandler(this.btnSelecFoto_Click_1);
             // 
             // txtFotoLocal
             // 

@@ -505,7 +505,17 @@ namespace Cadastro_de_Alunos
             txtNome.Focus();
         }
 
-        private void btnSelecFoto_Click(object sender, EventArgs e)
+        private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            LimparCampos();
+        }
+
+        private void btnVoltar_Click_1(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnSelecFoto_Click_1(object sender, EventArgs e)
         {
             OpenFileDialog img = new OpenFileDialog();
             img.InitialDirectory = "c:\\";
@@ -524,16 +534,6 @@ namespace Cadastro_de_Alunos
                     MessageBox.Show("Erro ao carregar imagem: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-        }
-
-        private void btnLimpar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnVoltar_Click_1(object sender, EventArgs e)
-        {
-            Close();
         }
     }
 }

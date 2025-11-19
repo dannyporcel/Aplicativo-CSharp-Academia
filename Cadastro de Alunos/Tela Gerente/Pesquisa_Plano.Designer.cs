@@ -33,17 +33,11 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.rbInativo_Pesquisa = new System.Windows.Forms.RadioButton();
-            this.rbAtivo_Pesquisa = new System.Windows.Forms.RadioButton();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSair = new System.Windows.Forms.Button();
             this.dgPesquisaPlano = new System.Windows.Forms.DataGridView();
             this.pnlEditar = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.rbInativo = new System.Windows.Forms.RadioButton();
-            this.rbAtivo = new System.Windows.Forms.RadioButton();
             this.txtObservacao = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
@@ -61,7 +55,6 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgPesquisaPlano)).BeginInit();
             this.pnlEditar.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,9 +92,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.rbInativo_Pesquisa);
-            this.groupBox1.Controls.Add(this.rbAtivo_Pesquisa);
             this.groupBox1.Controls.Add(this.txtNome);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 53);
@@ -110,40 +100,6 @@
             this.groupBox1.TabIndex = 115;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Pesquisar";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(27, 93);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(87, 24);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Situação:";
-            // 
-            // rbInativo_Pesquisa
-            // 
-            this.rbInativo_Pesquisa.AutoSize = true;
-            this.rbInativo_Pesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbInativo_Pesquisa.Location = new System.Drawing.Point(205, 93);
-            this.rbInativo_Pesquisa.Name = "rbInativo_Pesquisa";
-            this.rbInativo_Pesquisa.Size = new System.Drawing.Size(81, 28);
-            this.rbInativo_Pesquisa.TabIndex = 7;
-            this.rbInativo_Pesquisa.Text = "Inativo";
-            this.rbInativo_Pesquisa.UseVisualStyleBackColor = true;
-            this.rbInativo_Pesquisa.CheckedChanged += new System.EventHandler(this.rbInativo_Pesquisa_CheckedChanged);
-            // 
-            // rbAtivo_Pesquisa
-            // 
-            this.rbAtivo_Pesquisa.AutoSize = true;
-            this.rbAtivo_Pesquisa.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbAtivo_Pesquisa.Location = new System.Drawing.Point(120, 93);
-            this.rbAtivo_Pesquisa.Name = "rbAtivo_Pesquisa";
-            this.rbAtivo_Pesquisa.Size = new System.Drawing.Size(69, 28);
-            this.rbAtivo_Pesquisa.TabIndex = 2;
-            this.rbAtivo_Pesquisa.Text = "Ativo";
-            this.rbAtivo_Pesquisa.UseVisualStyleBackColor = true;
-            this.rbAtivo_Pesquisa.CheckedChanged += new System.EventHandler(this.rbAtivo_Pesquisa_CheckedChanged);
             // 
             // txtNome
             // 
@@ -186,7 +142,6 @@
             // 
             // pnlEditar
             // 
-            this.pnlEditar.Controls.Add(this.groupBox2);
             this.pnlEditar.Controls.Add(this.txtObservacao);
             this.pnlEditar.Controls.Add(this.label3);
             this.pnlEditar.Controls.Add(this.btnCancelar);
@@ -201,42 +156,6 @@
             this.pnlEditar.Name = "pnlEditar";
             this.pnlEditar.Size = new System.Drawing.Size(774, 409);
             this.pnlEditar.TabIndex = 124;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.rbInativo);
-            this.groupBox2.Controls.Add(this.rbAtivo);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(552, 112);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(128, 104);
-            this.groupBox2.TabIndex = 131;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Situação";
-            // 
-            // rbInativo
-            // 
-            this.rbInativo.AutoSize = true;
-            this.rbInativo.Enabled = false;
-            this.rbInativo.Location = new System.Drawing.Point(25, 62);
-            this.rbInativo.Name = "rbInativo";
-            this.rbInativo.Size = new System.Drawing.Size(81, 28);
-            this.rbInativo.TabIndex = 1;
-            this.rbInativo.TabStop = true;
-            this.rbInativo.Text = "Inativo";
-            this.rbInativo.UseVisualStyleBackColor = true;
-            // 
-            // rbAtivo
-            // 
-            this.rbAtivo.AutoSize = true;
-            this.rbAtivo.Enabled = false;
-            this.rbAtivo.Location = new System.Drawing.Point(25, 28);
-            this.rbAtivo.Name = "rbAtivo";
-            this.rbAtivo.Size = new System.Drawing.Size(69, 28);
-            this.rbAtivo.TabIndex = 0;
-            this.rbAtivo.TabStop = true;
-            this.rbAtivo.Text = "Ativo";
-            this.rbAtivo.UseVisualStyleBackColor = true;
             // 
             // txtObservacao
             // 
@@ -388,8 +307,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgPesquisaPlano)).EndInit();
             this.pnlEditar.ResumeLayout(false);
             this.pnlEditar.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -418,12 +335,6 @@
 		private System.Windows.Forms.TextBox txtID;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtObservacao;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton rbInativo;
-        private System.Windows.Forms.RadioButton rbAtivo;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.RadioButton rbInativo_Pesquisa;
-        private System.Windows.Forms.RadioButton rbAtivo_Pesquisa;
         private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

@@ -32,6 +32,9 @@
             this.btnLimpar = new System.Windows.Forms.Button();
             this.btnCadastrar = new System.Windows.Forms.Button();
             this.gbModalidadeDados = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rbInativo = new System.Windows.Forms.RadioButton();
+            this.rbAtivo = new System.Windows.Forms.RadioButton();
             this.txtDescricao = new System.Windows.Forms.TextBox();
             this.lblDescrição = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -41,6 +44,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.btnVoltar = new System.Windows.Forms.Button();
             this.gbModalidadeDados.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -48,7 +52,7 @@
             // btnLimpar
             // 
             this.btnLimpar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLimpar.Location = new System.Drawing.Point(491, 577);
+            this.btnLimpar.Location = new System.Drawing.Point(351, 370);
             this.btnLimpar.Name = "btnLimpar";
             this.btnLimpar.Size = new System.Drawing.Size(115, 31);
             this.btnLimpar.TabIndex = 6;
@@ -59,7 +63,7 @@
             // btnCadastrar
             // 
             this.btnCadastrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCadastrar.Location = new System.Drawing.Point(217, 577);
+            this.btnCadastrar.Location = new System.Drawing.Point(121, 370);
             this.btnCadastrar.Name = "btnCadastrar";
             this.btnCadastrar.Size = new System.Drawing.Size(115, 31);
             this.btnCadastrar.TabIndex = 4;
@@ -69,6 +73,7 @@
             // 
             // gbModalidadeDados
             // 
+            this.gbModalidadeDados.Controls.Add(this.groupBox2);
             this.gbModalidadeDados.Controls.Add(this.txtDescricao);
             this.gbModalidadeDados.Controls.Add(this.lblDescrição);
             this.gbModalidadeDados.Controls.Add(this.label1);
@@ -76,25 +81,57 @@
             this.gbModalidadeDados.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbModalidadeDados.Location = new System.Drawing.Point(12, 50);
             this.gbModalidadeDados.Name = "gbModalidadeDados";
-            this.gbModalidadeDados.Size = new System.Drawing.Size(1107, 509);
+            this.gbModalidadeDados.Size = new System.Drawing.Size(810, 314);
             this.gbModalidadeDados.TabIndex = 8;
             this.gbModalidadeDados.TabStop = false;
             this.gbModalidadeDados.Text = "Dados da Modalidade de Aula:";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.rbInativo);
+            this.groupBox2.Controls.Add(this.rbAtivo);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(575, 136);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(164, 100);
+            this.groupBox2.TabIndex = 15;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Situação:";
+            // 
+            // rbInativo
+            // 
+            this.rbInativo.Location = new System.Drawing.Point(27, 64);
+            this.rbInativo.Name = "rbInativo";
+            this.rbInativo.Size = new System.Drawing.Size(113, 28);
+            this.rbInativo.TabIndex = 1;
+            this.rbInativo.TabStop = true;
+            this.rbInativo.Text = "Inativo";
+            this.rbInativo.UseVisualStyleBackColor = true;
+            // 
+            // rbAtivo
+            // 
+            this.rbAtivo.Location = new System.Drawing.Point(27, 30);
+            this.rbAtivo.Name = "rbAtivo";
+            this.rbAtivo.Size = new System.Drawing.Size(85, 27);
+            this.rbAtivo.TabIndex = 0;
+            this.rbAtivo.TabStop = true;
+            this.rbAtivo.Text = "Ativo";
+            this.rbAtivo.UseVisualStyleBackColor = true;
+            // 
             // txtDescricao
             // 
             this.txtDescricao.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescricao.Location = new System.Drawing.Point(106, 189);
+            this.txtDescricao.Location = new System.Drawing.Point(12, 136);
             this.txtDescricao.Multiline = true;
             this.txtDescricao.Name = "txtDescricao";
-            this.txtDescricao.Size = new System.Drawing.Size(684, 271);
+            this.txtDescricao.Size = new System.Drawing.Size(442, 151);
             this.txtDescricao.TabIndex = 3;
             // 
             // lblDescrição
             // 
             this.lblDescrição.AutoSize = true;
             this.lblDescrição.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescrição.Location = new System.Drawing.Point(6, 133);
+            this.lblDescrição.Location = new System.Drawing.Point(6, 84);
             this.lblDescrição.Name = "lblDescrição";
             this.lblDescrição.Size = new System.Drawing.Size(144, 31);
             this.lblDescrição.TabIndex = 3;
@@ -129,7 +166,7 @@
             this.panel1.ForeColor = System.Drawing.SystemColors.Control;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1173, 42);
+            this.panel1.Size = new System.Drawing.Size(842, 42);
             this.panel1.TabIndex = 113;
             // 
             // pictureBox2
@@ -155,7 +192,7 @@
             // btnVoltar
             // 
             this.btnVoltar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVoltar.Location = new System.Drawing.Point(757, 577);
+            this.btnVoltar.Location = new System.Drawing.Point(636, 370);
             this.btnVoltar.Name = "btnVoltar";
             this.btnVoltar.Size = new System.Drawing.Size(115, 31);
             this.btnVoltar.TabIndex = 5;
@@ -167,7 +204,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1173, 636);
+            this.ClientSize = new System.Drawing.Size(842, 471);
             this.Controls.Add(this.btnVoltar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnLimpar);
@@ -182,6 +219,7 @@
             this.Load += new System.EventHandler(this.Cadastro_Modalidades_Load);
             this.gbModalidadeDados.ResumeLayout(false);
             this.gbModalidadeDados.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -201,5 +239,8 @@
         private System.Windows.Forms.TextBox txtDescricao;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton rbInativo;
+        private System.Windows.Forms.RadioButton rbAtivo;
     }
 }

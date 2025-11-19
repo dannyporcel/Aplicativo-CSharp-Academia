@@ -225,13 +225,6 @@
             this.btnVoltar.UseVisualStyleBackColor = true;
             this.btnVoltar.Click += new System.EventHandler(this.btnVoltar_Click);
             // 
-            // BD_NexusDataSetBindingSource
-            // 
-            this.BD_NexusDataSetBindingSource.Position = 0;
-            // 
-            // BD_NexusDataSet
-            // 
-            
             // txtNome_Plano
             // 
             this.txtNome_Plano.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
