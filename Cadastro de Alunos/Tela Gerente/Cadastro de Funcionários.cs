@@ -11,7 +11,7 @@ namespace Cadastro_de_Alunos
     public partial class Cadastro_de_Funcionários : Form
     {
         string Perfil;
-        string senha = "1234";
+        string senha = "123456";
         bool isProfessor = false;
 
         SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");

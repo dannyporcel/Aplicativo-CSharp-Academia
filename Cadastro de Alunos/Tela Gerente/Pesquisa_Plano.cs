@@ -14,7 +14,7 @@ namespace Cadastro_de_Alunos
 {
     public partial class Pesquisa_Plano : Form
     {
-        string Situacao;
+        
 
         public Pesquisa_Plano()
         {
@@ -28,7 +28,7 @@ namespace Cadastro_de_Alunos
         {
 
 
-            string selectQuery = "SELECT ID_Plano,nomePlano, planoValor, Observacao, plSituacao FROM tbl_Plano ";
+            string selectQuery = "SELECT id_plano, nome_plano, valor_plano, observacao FROM tbl_plano";
 
             SqlDataAdapter da = new SqlDataAdapter(selectQuery, connection);
 
@@ -107,7 +107,7 @@ namespace Cadastro_de_Alunos
             {
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
-                using (SqlDataAdapter da = new SqlDataAdapter("SELECT ID_Plano,nomePlano, planoValor, Observacao, plSituacao FROM tbl_Plano", conn))
+                using (SqlDataAdapter da = new SqlDataAdapter("SELECT id_plano, nome_plano, valor_plano, observacao FROM tbl_plano", conn))
                 {
 
                     da.Fill(dt);
@@ -165,8 +165,10 @@ namespace Cadastro_de_Alunos
             {
                 try
                 {
-                    
-                    string updateQuery = "UPDATE tbl_Plano SET nomePlano='" + txtNomeEditar.Text + "',planoValor='" + float.Parse(txtValor.Text) + "',Observacao='" + txtObservacao.Text + "',plSituacao='" + Situacao + "' WHERE ID_Plano=" + int.Parse(txtID.Text);
+                    string updateQuery = "UPDATE tbl_plano SET nome_plano='" + txtNomeEditar.Text +
+                     "', valor_plano='" + float.Parse(txtValor.Text) +
+                     "', observacao='" + txtObservacao.Text +
+                     "' WHERE id_plano=" + int.Parse(txtID.Text);
                     executeMyQuery(updateQuery);
                     populateDGV();
                 }

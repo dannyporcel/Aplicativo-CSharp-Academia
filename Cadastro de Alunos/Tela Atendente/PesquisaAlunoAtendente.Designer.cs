@@ -68,17 +68,11 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.txtTelefone = new System.Windows.Forms.TextBox();
-            this.gbSituacao = new System.Windows.Forms.GroupBox();
-            this.rbtAtivo = new System.Windows.Forms.RadioButton();
-            this.rbtInativo = new System.Windows.Forms.RadioButton();
             this.btnAtualizar = new System.Windows.Forms.Button();
             this.btnCadastroCasoInativoSelecionado = new System.Windows.Forms.Button();
             this.dgPesquisaAluno = new System.Windows.Forms.DataGridView();
             this.btnSair = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.rdInativo = new System.Windows.Forms.RadioButton();
-            this.rdAtivo = new System.Windows.Forms.RadioButton();
             this.txtCPF = new System.Windows.Forms.TextBox();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -91,7 +85,6 @@
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.gbSituacao.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgPesquisaAluno)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -115,7 +108,6 @@
             this.pnlEditar.Controls.Add(this.groupBox2);
             this.pnlEditar.Controls.Add(this.groupBox3);
             this.pnlEditar.Controls.Add(this.groupBox4);
-            this.pnlEditar.Controls.Add(this.gbSituacao);
             this.pnlEditar.Controls.Add(this.btnAtualizar);
             this.pnlEditar.Controls.Add(this.btnCadastroCasoInativoSelecionado);
             this.pnlEditar.Location = new System.Drawing.Point(286, 180);
@@ -255,7 +247,6 @@
             this.txtRG.Name = "txtRG";
             this.txtRG.Size = new System.Drawing.Size(116, 31);
             this.txtRG.TabIndex = 20;
-            this.txtRG.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRG_KeyPress);
             // 
             // label9
             // 
@@ -494,7 +485,6 @@
             this.txtDDD2.Name = "txtDDD2";
             this.txtDDD2.Size = new System.Drawing.Size(30, 31);
             this.txtDDD2.TabIndex = 53;
-            this.txtDDD2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDDD2_KeyPress);
             // 
             // txtDDD1
             // 
@@ -516,7 +506,6 @@
             this.txtTelefone2.Name = "txtTelefone2";
             this.txtTelefone2.Size = new System.Drawing.Size(137, 31);
             this.txtTelefone2.TabIndex = 56;
-            this.txtTelefone2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefone2_KeyPress);
             // 
             // label17
             // 
@@ -568,43 +557,6 @@
             this.txtTelefone.TabIndex = 50;
             this.txtTelefone.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefone_KeyPress);
             // 
-            // gbSituacao
-            // 
-            this.gbSituacao.Controls.Add(this.rbtAtivo);
-            this.gbSituacao.Controls.Add(this.rbtInativo);
-            this.gbSituacao.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbSituacao.Location = new System.Drawing.Point(696, 25);
-            this.gbSituacao.Name = "gbSituacao";
-            this.gbSituacao.Size = new System.Drawing.Size(176, 64);
-            this.gbSituacao.TabIndex = 169;
-            this.gbSituacao.TabStop = false;
-            this.gbSituacao.Text = "Situação:";
-            // 
-            // rbtAtivo
-            // 
-            this.rbtAtivo.AutoSize = true;
-            this.rbtAtivo.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.rbtAtivo.Enabled = false;
-            this.rbtAtivo.Location = new System.Drawing.Point(9, 23);
-            this.rbtAtivo.Name = "rbtAtivo";
-            this.rbtAtivo.Size = new System.Drawing.Size(69, 28);
-            this.rbtAtivo.TabIndex = 67;
-            this.rbtAtivo.Text = "Ativo";
-            this.rbtAtivo.UseVisualStyleBackColor = false;
-            this.rbtAtivo.CheckedChanged += new System.EventHandler(this.rbtAtivo_CheckedChanged);
-            // 
-            // rbtInativo
-            // 
-            this.rbtInativo.AutoSize = true;
-            this.rbtInativo.Enabled = false;
-            this.rbtInativo.Location = new System.Drawing.Point(84, 23);
-            this.rbtInativo.Name = "rbtInativo";
-            this.rbtInativo.Size = new System.Drawing.Size(81, 28);
-            this.rbtInativo.TabIndex = 67;
-            this.rbtInativo.Text = "Inativo";
-            this.rbtInativo.UseVisualStyleBackColor = false;
-            this.rbtInativo.CheckedChanged += new System.EventHandler(this.rbtInativo_CheckedChanged);
-            // 
             // btnAtualizar
             // 
             this.btnAtualizar.Enabled = false;
@@ -655,9 +607,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.rdInativo);
-            this.groupBox1.Controls.Add(this.rdAtivo);
             this.groupBox1.Controls.Add(this.txtCPF);
             this.groupBox1.Controls.Add(this.txtNome);
             this.groupBox1.Controls.Add(this.label2);
@@ -669,42 +618,6 @@
             this.groupBox1.TabIndex = 165;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Pesquisar";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(11, 93);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(87, 24);
-            this.label3.TabIndex = 23;
-            this.label3.Text = "Situação:";
-            // 
-            // rdInativo
-            // 
-            this.rdInativo.AutoSize = true;
-            this.rdInativo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdInativo.Location = new System.Drawing.Point(203, 91);
-            this.rdInativo.Name = "rdInativo";
-            this.rdInativo.Size = new System.Drawing.Size(81, 28);
-            this.rdInativo.TabIndex = 22;
-            this.rdInativo.TabStop = true;
-            this.rdInativo.Text = "Inativo";
-            this.rdInativo.UseVisualStyleBackColor = true;
-            this.rdInativo.CheckedChanged += new System.EventHandler(this.rdInativo_CheckedChanged);
-            // 
-            // rdAtivo
-            // 
-            this.rdAtivo.AutoSize = true;
-            this.rdAtivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdAtivo.Location = new System.Drawing.Point(115, 91);
-            this.rdAtivo.Name = "rdAtivo";
-            this.rdAtivo.Size = new System.Drawing.Size(69, 28);
-            this.rdAtivo.TabIndex = 21;
-            this.rdAtivo.TabStop = true;
-            this.rdAtivo.Text = "Ativo";
-            this.rdAtivo.UseVisualStyleBackColor = true;
-            this.rdAtivo.CheckedChanged += new System.EventHandler(this.rdAtivo_CheckedChanged);
             // 
             // txtCPF
             // 
@@ -811,8 +724,6 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.gbSituacao.ResumeLayout(false);
-            this.gbSituacao.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgPesquisaAluno)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -865,17 +776,11 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox txtTelefone;
-        private System.Windows.Forms.GroupBox gbSituacao;
-        private System.Windows.Forms.RadioButton rbtAtivo;
-        private System.Windows.Forms.RadioButton rbtInativo;
         private System.Windows.Forms.Button btnAtualizar;
         private System.Windows.Forms.Button btnCadastroCasoInativoSelecionado;
         private System.Windows.Forms.DataGridView dgPesquisaAluno;
         private System.Windows.Forms.Button btnSair;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.RadioButton rdInativo;
-        private System.Windows.Forms.RadioButton rdAtivo;
         private System.Windows.Forms.TextBox txtCPF;
         private System.Windows.Forms.TextBox txtNome;
         private System.Windows.Forms.Label label2;

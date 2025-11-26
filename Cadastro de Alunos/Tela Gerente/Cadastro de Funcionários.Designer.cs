@@ -598,10 +598,10 @@
             // 
             // txtCREF
             // 
-            this.txtCREF.Location = new System.Drawing.Point(496, 505);
+            this.txtCREF.Location = new System.Drawing.Point(484, 505);
             this.txtCREF.MaxLength = 10;
             this.txtCREF.Name = "txtCREF";
-            this.txtCREF.Size = new System.Drawing.Size(100, 20);
+            this.txtCREF.Size = new System.Drawing.Size(117, 20);
             this.txtCREF.TabIndex = 155;
             // 
             // gbPermissoesProfessor
