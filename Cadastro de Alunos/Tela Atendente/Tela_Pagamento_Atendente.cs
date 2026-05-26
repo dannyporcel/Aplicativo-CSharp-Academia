@@ -1,0 +1,261 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace Cadastro_de_Alunos
+{
+    public partial class Tela_Pagamento_Atendente : Form
+    {
+        string connectionString = "Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp";
+        DataTable dt = new DataTable("tbl_aluno");
+
+        public Tela_Pagamento_Atendente()
+        {
+            InitializeComponent();
+        }
+
+        private SqlConnection CreateConnection()
+        {
+            return new SqlConnection(connectionString);
+        }
+
+        // Método para converter DateTime para formato YYYYMMDD (int)
+        private int ConvertToIntDate(DateTime date)
+        {
+            return date.Year * 10000 + date.Month * 100 + date.Day;
+        }
+
+        public void populateDGV()
+        {
+            using (SqlConnection conn = CreateConnection())
+            {
+                // CORREÇÃO: Query adaptada para BD_Nexus
+                string selectQuery = "SELECT nome, cpf, id_aluno from tbl_aluno";
+                SqlDataAdapter da = new SqlDataAdapter(selectQuery, conn);
+                DataTable tabel = new DataTable();
+                da.Fill(tabel);
+                dgPesquisaAluno.DataSource = tabel;
+            }
+        }
+
+        private void preencher_lbPlanos()
+        {
+            try
+            {
+                using (SqlConnection conn = CreateConnection())
+                {
+                    conn.Open();
+                    // CORREÇÃO: Query adaptada para BD_Nexus
+                    string scom = "SELECT id_plano, nome_plano, valor_plano, observacao FROM tbl_plano";
+                    SqlDataAdapter da = new SqlDataAdapter(scom, conn);
+                    DataTable dtResultado = new DataTable();
+                    dtResultado.Clear();
+                    lbPlanos.DataSource = null;
+                    da.Fill(dtResultado);
+
+                    lbPlanos.DataSource = dtResultado;
+                    lbPlanos.DisplayMember = "nome_plano";
+                    lbPlanos.ValueMember = "id_plano";
+                    lbPlanos.SelectedItem = null;
+                    lbPlanos.Refresh();
+                }
+            }
+            catch (SqlException sqle)
+            {
+                MessageBox.Show("Falha ao efetuar a conexão. Erro: " + sqle);
+            }
+        }
+
+        private void Tela_Pagamento_Atendente_Load(object sender, EventArgs e)
+        {
+            using (SqlConnection conn = CreateConnection())
+            {
+                if (conn.State == ConnectionState.Closed)
+                    conn.Open();
+                // CORREÇÃO: Query adaptada para BD_Nexus
+                using (SqlDataAdapter da = new SqlDataAdapter("SELECT nome, cpf, id_aluno from tbl_aluno", conn))
+                {
+                    da.Fill(dt);
+                    dgPesquisaAluno.DataSource = dt;
+                }
+            }
+            preencher_lbPlanos();
+            populateDGV();
+        }
+
+        private void lbPlanos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbPlanos.SelectedItem != null)
+            {
+                // CORREÇÃO: Obter o valor correto do plano selecionado
+                DataRowView selectedRow = (DataRowView)lbPlanos.SelectedItem;
+                int idPlano = Convert.ToInt32(selectedRow["id_plano"]);
+
+                using (SqlConnection conn = CreateConnection())
+                {
+                    conn.Open();
+                    // CORREÇÃO: Usar parameterized query
+                    SqlCommand comando = new SqlCommand("SELECT * FROM tbl_plano WHERE id_plano = @id_plano", conn);
+                    comando.Parameters.AddWithValue("@id_plano", idPlano);
+
+                    DataTable dt = new DataTable();
+                    SqlDataAdapter da = new SqlDataAdapter(comando);
+                    da.Fill(dt);
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        DataRow dr = dt.Rows[0];
+                        txtValor.Text = dr["valor_plano"].ToString();
+                        txtPlanoEscolhido.Text = dr["nome_plano"].ToString();
+                        txtDescricao.Text = dr["observacao"].ToString();
+                        txtID_Plano.Text = dr["id_plano"].ToString();
+                    }
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (txtDescricao.Text == "")
+            {
+                MessageBox.Show("Selecione um plano");
+            }
+            else if (txtNome.Text == "")
+            {
+                MessageBox.Show("Selecione um aluno");
+            }
+            else
+            {
+                // CORREÇÃO: Verificar se o aluno já tem pagamento em aberto para este mês
+                int pagamentosExistentes = 0;
+                using (SqlConnection conn = CreateConnection())
+                {
+                    conn.Open();
+
+                    // CORREÇÃO: Converter datas para inteiro no formato YYYYMMDD
+                    int mesAtual = DateTime.Now.Year * 10000 + DateTime.Now.Month * 100 + 1;
+                    int proximoMes = DateTime.Now.AddMonths(1).Year * 10000 + DateTime.Now.AddMonths(1).Month * 100 + 1;
+
+                    SqlCommand verificaCmd = new SqlCommand(
+                        "SELECT COUNT(*) FROM tbl_pagamento WHERE id_aluno = @id_aluno AND dataVencimento >= @mesAtual AND dataVencimento < @proximoMes",
+                        conn);
+                    verificaCmd.Parameters.AddWithValue("@id_aluno", int.Parse(txtID_Aluno.Text));
+                    verificaCmd.Parameters.AddWithValue("@mesAtual", mesAtual);
+                    verificaCmd.Parameters.AddWithValue("@proximoMes", proximoMes);
+
+                    pagamentosExistentes = (int)verificaCmd.ExecuteScalar();
+                }
+
+                if (pagamentosExistentes > 0)
+                {
+                    MessageBox.Show("Este aluno já possui um pagamento para este mês", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    DialogResult confirm = MessageBox.Show("Deseja gerar um novo pagamento mesmo assim?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (confirm == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+
+                // CORREÇÃO: Realizar o pagamento na tabela tbl_pagamento
+                try
+                {
+                    DateTime dataPagamento = DateTime.Now;
+                    DateTime dataVencimento = dataPagamento.AddMonths(1);
+
+                    // CORREÇÃO: Converter datas para o formato inteiro YYYYMMDD
+                    int dataPagamentoInt = ConvertToIntDate(dataPagamento);
+                    int dataVencimentoInt = ConvertToIntDate(dataVencimento);
+
+                    using (SqlConnection conn = CreateConnection())
+                    {
+                        conn.Open();
+
+                        // CORREÇÃO: Inserir na tabela tbl_pagamento
+                        string insertQuery = @"INSERT INTO tbl_pagamento (id_pagamento, dataPagamento, dataVencimento, valor, id_aluno, id_plano) 
+                                             VALUES ((SELECT ISNULL(MAX(id_pagamento), 0) + 1 FROM tbl_pagamento), 
+                                             @dataPagamento, @dataVencimento, @valor, @id_aluno, @id_plano)";
+
+                        SqlCommand comando = new SqlCommand(insertQuery, conn);
+                        comando.Parameters.AddWithValue("@dataPagamento", dataPagamentoInt);
+                        comando.Parameters.AddWithValue("@dataVencimento", dataVencimentoInt);
+                        comando.Parameters.AddWithValue("@valor", decimal.Parse(txtValor.Text));
+                        comando.Parameters.AddWithValue("@id_aluno", int.Parse(txtID_Aluno.Text));
+                        comando.Parameters.AddWithValue("@id_plano", int.Parse(txtID_Plano.Text));
+
+                        int rowsAffected = comando.ExecuteNonQuery();
+
+                        if (rowsAffected == 1)
+                        {
+                            // CORREÇÃO: Atualizar data_pg do aluno
+                            string updateAluno = "UPDATE tbl_aluno SET data_pg = @dataPagamento WHERE id_aluno = @id_aluno";
+                            comando = new SqlCommand(updateAluno, conn);
+                            comando.Parameters.AddWithValue("@dataPagamento", dataPagamento);
+                            comando.Parameters.AddWithValue("@id_aluno", int.Parse(txtID_Aluno.Text));
+                            comando.ExecuteNonQuery();
+
+                            MessageBox.Show("Pagamento realizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            LimparCampos();
+                        }
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Erro ao realizar pagamento: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void LimparCampos()
+        {
+            txtPlanoEscolhido.Clear();
+            txtDescricao.Clear();
+            txtValor.Clear();
+            txtID_Aluno.Clear();
+            txtID_Plano.Clear();
+            txtCPF.Clear();
+            txtNome.Clear();
+            lbPlanos.SelectedIndex = -1;
+        }
+
+        private void dgPesquisaAluno_MouseClick(object sender, MouseEventArgs e)
+        {
+            txtNome.Text = dgPesquisaAluno.CurrentRow.Cells[0].Value.ToString();
+            txtCPF.Text = dgPesquisaAluno.CurrentRow.Cells[1].Value.ToString();
+            txtID_Aluno.Text = dgPesquisaAluno.CurrentRow.Cells[2].Value.ToString();
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                DataView dv = dt.DefaultView;
+                dv.RowFilter = string.Format("nome like '%{0}%'", textBox1.Text);
+                dgPesquisaAluno.DataSource = dv.ToTable();
+            }
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                DataView dv = dt.DefaultView;
+                dv.RowFilter = string.Format("cpf like '%{0}%'", textBox2.Text);
+                dgPesquisaAluno.DataSource = dv.ToTable();
+            }
+        }
+    }
+}
