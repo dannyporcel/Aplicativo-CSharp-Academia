@@ -62,6 +62,7 @@
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
+            this.btnRelatorio = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -217,9 +218,9 @@
             this.dgPesquisaModal.AllowUserToAddRows = false;
             this.dgPesquisaModal.AllowUserToDeleteRows = false;
             this.dgPesquisaModal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgPesquisaModal.Location = new System.Drawing.Point(530, 48);
+            this.dgPesquisaModal.Location = new System.Drawing.Point(457, 48);
             this.dgPesquisaModal.Name = "dgPesquisaModal";
-            this.dgPesquisaModal.Size = new System.Drawing.Size(574, 117);
+            this.dgPesquisaModal.Size = new System.Drawing.Size(704, 113);
             this.dgPesquisaModal.TabIndex = 117;
             this.dgPesquisaModal.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgPesquisaModal_MouseClick);
             // 
@@ -241,7 +242,7 @@
             this.groupBox2.Controls.Add(this.rbInativo);
             this.groupBox2.Controls.Add(this.rbAtivo);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(621, 149);
+            this.groupBox2.Location = new System.Drawing.Point(648, 68);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(164, 100);
             this.groupBox2.TabIndex = 14;
@@ -275,7 +276,7 @@
             // btnEditar
             // 
             this.btnEditar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditar.Location = new System.Drawing.Point(674, 83);
+            this.btnEditar.Location = new System.Drawing.Point(719, 13);
             this.btnEditar.Name = "btnEditar";
             this.btnEditar.Size = new System.Drawing.Size(93, 31);
             this.btnEditar.TabIndex = 13;
@@ -435,11 +436,23 @@
             this.pictureBox7.TabIndex = 124;
             this.pictureBox7.TabStop = false;
             // 
+            // btnRelatorio
+            // 
+            this.btnRelatorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRelatorio.Location = new System.Drawing.Point(985, 167);
+            this.btnRelatorio.Name = "btnRelatorio";
+            this.btnRelatorio.Size = new System.Drawing.Size(175, 34);
+            this.btnRelatorio.TabIndex = 125;
+            this.btnRelatorio.Text = "Gerar Relatório";
+            this.btnRelatorio.UseVisualStyleBackColor = true;
+            this.btnRelatorio.Click += new System.EventHandler(this.btnRelatorio_Click);
+            // 
             // Pesquisa_Modalidade
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1173, 636);
+            this.Controls.Add(this.btnRelatorio);
             this.Controls.Add(this.pictureBox7);
             this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.pictureBox5);
@@ -514,5 +527,6 @@
         private System.Windows.Forms.RadioButton rbPesquisa_Inativo;
         private System.Windows.Forms.RadioButton rbPesquisa_Ativo;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnRelatorio;
     }
 }

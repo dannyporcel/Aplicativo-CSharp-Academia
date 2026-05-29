@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
+using iTextSharp;//E A BIBLIOTECA ITEXTSHARP E SUAS EXTENSÕES
+using iTextSharp.text;//EXTENSÃO 1 (TEXT)
+using iTextSharp.text.pdf;//EXTENSÃO 2 (PDF)
+using System.IO;// A BIBLIOTECA DE ENTRADA E SAIDA DE ARQUIVOS
 
 namespace Cadastro_de_Alunos
 {
@@ -19,6 +23,7 @@ namespace Cadastro_de_Alunos
         public Pesquisa_Plano()
         {
             InitializeComponent();
+
         }
 
         DataTable dt = new DataTable("tbl_Plano");
@@ -35,6 +40,67 @@ namespace Cadastro_de_Alunos
             DataTable table = new DataTable();
             da.Fill(table);
             dgPesquisaPlano.DataSource = table;
+        }
+
+        private void GerarPDF()
+        {
+            SaveFileDialog salvar = new SaveFileDialog();
+
+            salvar.Filter = "Arquivo PDF|*.pdf";
+            salvar.Title = "Salvar Relatório";
+
+            if (salvar.ShowDialog() == DialogResult.OK)
+            {
+                Document documento = new Document(PageSize.A4);
+
+                try
+                {
+                    PdfWriter.GetInstance(documento, new FileStream(salvar.FileName, FileMode.Create));
+
+                    documento.Open();
+
+                    Paragraph titulo = new Paragraph("RELATÓRIO DE PLANOS");
+                    titulo.Alignment = Element.ALIGN_CENTER;
+                    titulo.SpacingAfter = 20f;
+
+                    documento.Add(titulo);
+
+                    Paragraph dataGeracao = new Paragraph(
+                        "Gerado em: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+                    dataGeracao.SpacingAfter = 15;
+
+                    documento.Add(dataGeracao);
+
+                    PdfPTable tabela = new PdfPTable(4);
+                    tabela.WidthPercentage = 100;
+
+                    tabela.AddCell("ID");
+                    tabela.AddCell("Nome");
+                    tabela.AddCell("Valor");
+                    tabela.AddCell("Observação");
+
+                    foreach (DataGridViewRow row in dgPesquisaPlano.Rows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            tabela.AddCell(row.Cells[0].Value?.ToString());
+                            tabela.AddCell(row.Cells[1].Value?.ToString());
+                            tabela.AddCell(row.Cells[2].Value?.ToString());
+                            tabela.AddCell(row.Cells[3].Value?.ToString());
+                        }
+                    }
+
+                    documento.Add(tabela);
+
+                    documento.Close();
+
+                    MessageBox.Show("PDF gerado com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro: " + ex.Message);
+                }
+            }
         }
 
 
@@ -224,8 +290,9 @@ namespace Cadastro_de_Alunos
             if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar)) e.Handled = true;
         }
 
-
-
-        
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {
+            GerarPDF();
+        }
     }
 }

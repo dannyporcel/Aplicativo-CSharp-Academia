@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Configuration;
+using iTextSharp;//E A BIBLIOTECA ITEXTSHARP E SUAS EXTENSÕES
+using iTextSharp.text;//EXTENSÃO 1 (TEXT)
+using iTextSharp.text.pdf;//EXTENSÃO 2 (PDF)
+using System.IO;// A BIBLIOTECA DE ENTRADA E SAIDA DE ARQUIVOS
 
 namespace Cadastro_de_Alunos
 {
@@ -31,6 +35,88 @@ namespace Cadastro_de_Alunos
             DataTable table = new DataTable();
             da.Fill(table);
             dgPesquisaModal.DataSource = table;
+        }
+
+        private void GerarPDFModal()
+        {
+            SaveFileDialog salvar = new SaveFileDialog();
+
+            salvar.Filter = "Arquivo PDF|*.pdf";
+            salvar.Title = "Salvar Relatório de Modalidades";
+            salvar.FileName = "Relatorio_Modalidades.pdf";
+
+            if (salvar.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    Document documento = new Document(PageSize.A4.Rotate()); // Paisagem
+
+                    PdfWriter.GetInstance(documento,
+                        new FileStream(salvar.FileName, FileMode.Create));
+
+                    documento.Open();
+
+                    iTextSharp.text.Font tituloFonte = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 16);
+
+                    Paragraph titulo = new Paragraph("RELATÓRIO DE MODALIDADES", tituloFonte);
+                    titulo.Alignment = Element.ALIGN_CENTER;
+                    titulo.SpacingAfter = 15;
+
+                    documento.Add(titulo);
+
+                    Paragraph dataGeracao = new Paragraph(
+                        "Gerado em: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+                    dataGeracao.SpacingAfter = 15;
+
+                    documento.Add(dataGeracao);
+
+                    PdfPTable tabela = new PdfPTable(5);
+                    tabela.WidthPercentage = 100;
+
+                    tabela.SetWidths(new float[] { 10f, 25f, 35f, 15f, 15f });
+
+                    tabela.AddCell("ID");
+                    tabela.AddCell("Nome");
+                    tabela.AddCell("Descrição");
+                    tabela.AddCell("Situação");
+                    tabela.AddCell("Data Cadastro");
+
+                    foreach (DataGridViewRow row in dgPesquisaModal.Rows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            tabela.AddCell(row.Cells[0].Value?.ToString() ?? "");
+                            tabela.AddCell(row.Cells[1].Value?.ToString() ?? "");
+                            tabela.AddCell(row.Cells[2].Value?.ToString() ?? "");
+                            tabela.AddCell(row.Cells[3].Value?.ToString() ?? "");
+                            tabela.AddCell(row.Cells[4].Value?.ToString() ?? "");
+                        }
+                    }
+
+                    documento.Add(tabela);
+
+                    documento.Add(new Paragraph("\n"));
+                    documento.Add(new Paragraph(
+                        "Total de Modalidades: " +
+                        (dgPesquisaModal.Rows.Count - 1)));
+
+                    documento.Close();
+
+                    MessageBox.Show(
+                        "Relatório gerado com sucesso!",
+                        "Sucesso",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        "Erro ao gerar PDF: " + ex.Message,
+                        "Erro",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
         }
 
         public void openConnection()
@@ -238,6 +324,11 @@ namespace Cadastro_de_Alunos
             DataView dv = dt.DefaultView;
             dv.RowFilter = string.Format("modalSituacao like 'Inativo'", rbPesquisa_Inativo.Text);
             dgPesquisaModal.DataSource = dv.ToTable();
+        }
+
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {
+            GerarPDFModal();
         }
     }
 }

@@ -1,14 +1,17 @@
-﻿using System;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
-using System.Configuration;
 
 namespace Cadastro_de_Alunos
 {
@@ -51,6 +54,108 @@ namespace Cadastro_de_Alunos
             DataTable table = new DataTable();
             da.Fill(table);
             dgPesquisaFunc.DataSource = table;
+        }
+
+        private void GerarPDFFuncionarios()
+        {
+            SaveFileDialog salvar = new SaveFileDialog();
+
+            salvar.Filter = "Arquivo PDF|*.pdf";
+            salvar.Title = "Salvar Relatório de Funcionários";
+            salvar.FileName = "Relatorio_Funcionarios.pdf";
+
+            if (salvar.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    Document documento = new Document(
+                        PageSize.A4.Rotate(),
+                        10f, 10f, 10f, 10f);
+
+                    PdfWriter.GetInstance(
+                        documento,
+                        new FileStream(salvar.FileName, FileMode.Create));
+
+                    documento.Open();
+
+                    Paragraph titulo = new Paragraph("RELATÓRIO DE FUNCIONÁRIOS");
+                    titulo.Alignment = Element.ALIGN_CENTER;
+                    titulo.SpacingAfter = 15;
+
+                    documento.Add(titulo);
+
+                    documento.Add(
+                        new Paragraph("Gerado em: " +
+                        DateTime.Now.ToString("dd/MM/yyyy HH:mm")));
+
+                    documento.Add(new Paragraph(" "));
+
+                    PdfPTable tabela = new PdfPTable(16);
+
+                    tabela.WidthPercentage = 100;
+
+                    tabela.SetWidths(new float[]
+                    {
+                5f, 15f, 10f, 6f, 8f,
+                12f, 8f, 5f, 8f, 8f,
+                4f, 8f, 4f, 8f, 15f, 8f
+                    });
+
+                    tabela.AddCell("ID");
+                    tabela.AddCell("Nome");
+                    tabela.AddCell("CPF");
+                    tabela.AddCell("Sexo");
+                    tabela.AddCell("Nascimento");
+                    tabela.AddCell("Logradouro");
+                    tabela.AddCell("Complemento");
+                    tabela.AddCell("Nº");
+                    tabela.AddCell("Bairro");
+                    tabela.AddCell("Cidade");
+                    tabela.AddCell("UF");
+                    tabela.AddCell("CEP");
+                    tabela.AddCell("DDD");
+                    tabela.AddCell("Telefone");
+                    tabela.AddCell("Email");
+                    tabela.AddCell("Cargo");
+
+                    foreach (DataGridViewRow row in dgPesquisaFunc.Rows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            for (int i = 0; i < 16; i++)
+                            {
+                                tabela.AddCell(
+                                    row.Cells[i].Value == null
+                                    ? ""
+                                    : row.Cells[i].Value.ToString());
+                            }
+                        }
+                    }
+
+                    documento.Add(tabela);
+
+                    documento.Add(new Paragraph(" "));
+                    documento.Add(
+                        new Paragraph("Total de Funcionários: " +
+                        (dgPesquisaFunc.Rows.Count - 1)));
+
+                    documento.Close();
+
+                    MessageBox.Show(
+                        "Relatório gerado com sucesso!",
+                        "Sucesso",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        "Erro ao gerar PDF:\n" + ex.Message,
+                        "Erro",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+            }
         }
 
         public void openConnection()
@@ -465,6 +570,11 @@ namespace Cadastro_de_Alunos
         private void txtTelefone2_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar)) e.Handled = true;
+        }
+
+        private void btnRelatorio_Click(object sender, EventArgs e)
+        {
+            GerarPDFFuncionarios();
         }
     }
 }
