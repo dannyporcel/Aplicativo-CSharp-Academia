@@ -43,16 +43,20 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btnVoltar = new System.Windows.Forms.Button();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.gbModalidadeDados.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // btnLimpar
             // 
             this.btnLimpar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLimpar.Location = new System.Drawing.Point(351, 370);
+            this.btnLimpar.Location = new System.Drawing.Point(196, 368);
             this.btnLimpar.Name = "btnLimpar";
             this.btnLimpar.Size = new System.Drawing.Size(115, 31);
             this.btnLimpar.TabIndex = 6;
@@ -63,7 +67,7 @@
             // btnCadastrar
             // 
             this.btnCadastrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCadastrar.Location = new System.Drawing.Point(121, 370);
+            this.btnCadastrar.Location = new System.Drawing.Point(12, 368);
             this.btnCadastrar.Name = "btnCadastrar";
             this.btnCadastrar.Size = new System.Drawing.Size(115, 31);
             this.btnCadastrar.TabIndex = 4;
@@ -73,6 +77,8 @@
             // 
             // gbModalidadeDados
             // 
+            this.gbModalidadeDados.Controls.Add(this.pictureBox4);
+            this.gbModalidadeDados.Controls.Add(this.pictureBox3);
             this.gbModalidadeDados.Controls.Add(this.groupBox2);
             this.gbModalidadeDados.Controls.Add(this.txtDescricao);
             this.gbModalidadeDados.Controls.Add(this.lblDescrição);
@@ -81,7 +87,7 @@
             this.gbModalidadeDados.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbModalidadeDados.Location = new System.Drawing.Point(12, 50);
             this.gbModalidadeDados.Name = "gbModalidadeDados";
-            this.gbModalidadeDados.Size = new System.Drawing.Size(810, 314);
+            this.gbModalidadeDados.Size = new System.Drawing.Size(456, 312);
             this.gbModalidadeDados.TabIndex = 8;
             this.gbModalidadeDados.TabStop = false;
             this.gbModalidadeDados.Text = "Dados da Modalidade de Aula:";
@@ -91,7 +97,7 @@
             this.groupBox2.Controls.Add(this.rbInativo);
             this.groupBox2.Controls.Add(this.rbAtivo);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(575, 136);
+            this.groupBox2.Location = new System.Drawing.Point(12, 195);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(164, 100);
             this.groupBox2.TabIndex = 15;
@@ -121,52 +127,52 @@
             // txtDescricao
             // 
             this.txtDescricao.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescricao.Location = new System.Drawing.Point(12, 136);
+            this.txtDescricao.Location = new System.Drawing.Point(126, 79);
             this.txtDescricao.Multiline = true;
             this.txtDescricao.Name = "txtDescricao";
-            this.txtDescricao.Size = new System.Drawing.Size(442, 151);
+            this.txtDescricao.Size = new System.Drawing.Size(316, 110);
             this.txtDescricao.TabIndex = 3;
             // 
             // lblDescrição
             // 
             this.lblDescrição.AutoSize = true;
-            this.lblDescrição.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescrição.Location = new System.Drawing.Point(6, 84);
+            this.lblDescrição.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.lblDescrição.Location = new System.Drawing.Point(10, 79);
             this.lblDescrição.Name = "lblDescrição";
-            this.lblDescrição.Size = new System.Drawing.Size(144, 31);
+            this.lblDescrição.Size = new System.Drawing.Size(114, 25);
             this.lblDescrição.TabIndex = 3;
             this.lblDescrição.Text = "Descrição:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(4, 33);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.label1.Location = new System.Drawing.Point(38, 42);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 31);
+            this.label1.Size = new System.Drawing.Size(82, 25);
             this.label1.TabIndex = 1;
             this.label1.Text = "Nome*:";
             // 
             // txtNome
             // 
             this.txtNome.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNome.Location = new System.Drawing.Point(109, 30);
+            this.txtNome.Location = new System.Drawing.Point(126, 33);
             this.txtNome.MaxLength = 150;
             this.txtNome.Name = "txtNome";
-            this.txtNome.Size = new System.Drawing.Size(682, 38);
+            this.txtNome.Size = new System.Drawing.Size(316, 38);
             this.txtNome.TabIndex = 0;
             this.txtNome.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNome_KeyPress);
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.OrangeRed;
+            this.panel1.BackColor = System.Drawing.Color.Black;
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.ForeColor = System.Drawing.SystemColors.Control;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(842, 42);
+            this.panel1.Size = new System.Drawing.Size(481, 42);
             this.panel1.TabIndex = 113;
             // 
             // pictureBox2
@@ -192,7 +198,7 @@
             // btnVoltar
             // 
             this.btnVoltar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVoltar.Location = new System.Drawing.Point(636, 370);
+            this.btnVoltar.Location = new System.Drawing.Point(353, 368);
             this.btnVoltar.Name = "btnVoltar";
             this.btnVoltar.Size = new System.Drawing.Size(115, 31);
             this.btnVoltar.TabIndex = 5;
@@ -200,11 +206,29 @@
             this.btnVoltar.UseVisualStyleBackColor = true;
             this.btnVoltar.Click += new System.EventHandler(this.btnVoltar_Click);
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(216, 218);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(83, 69);
+            this.pictureBox3.TabIndex = 121;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox4.Image")));
+            this.pictureBox4.Location = new System.Drawing.Point(341, 218);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(84, 69);
+            this.pictureBox4.TabIndex = 122;
+            this.pictureBox4.TabStop = false;
+            // 
             // Cadastro_Modalidades
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(842, 471);
+            this.ClientSize = new System.Drawing.Size(481, 414);
             this.Controls.Add(this.btnVoltar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnLimpar);
@@ -223,6 +247,8 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -242,5 +268,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton rbInativo;
         private System.Windows.Forms.RadioButton rbAtivo;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox4;
     }
 }

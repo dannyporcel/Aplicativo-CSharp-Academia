@@ -919,7 +919,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.Blue;
+            this.panel2.BackColor = System.Drawing.Color.Firebrick;
             this.panel2.Controls.Add(this.pictureBox2);
             this.panel2.Controls.Add(this.label7);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;

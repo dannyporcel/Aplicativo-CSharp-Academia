@@ -48,13 +48,10 @@ namespace Cadastro_de_Alunos
             using (SqlConnection conn = CreateConnection())
             {
                 conn.Open();
-
-                // CORREÇÃO: Usar a tabela e campos corretos do BD_Nexus
                 SqlCommand comando = new SqlCommand(
                     "SELECT nome FROM tbl_funcionarios WHERE cpf = @cpf",
                     conn);
 
-                // CORREÇÃO: Converter CPF para numérico (pois no BD é numeric)
                 comando.Parameters.AddWithValue("@cpf", long.Parse(txtCPF.Text));
 
                 DataTable dt = new DataTable();
@@ -70,7 +67,7 @@ namespace Cadastro_de_Alunos
                 {
                     lblUsuario.Text = "Usuário não encontrado";
                 }
-            } // A conexão é fechada automaticamente aqui
+            }
         }
 
         private void pesquisasToolStripMenuItem_Click(object sender, EventArgs e)

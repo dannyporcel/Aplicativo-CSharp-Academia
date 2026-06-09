@@ -269,7 +269,5 @@ namespace Cadastro_de_Alunos
         private void lbDescricao_ControlAdded(object sender, ControlEventArgs e) { }
         private void lbDescricao_Layout(object sender, LayoutEventArgs e) { }
 
-        // Método removido - não é mais necessário
-        // void carregaLista() { }
     }
 }

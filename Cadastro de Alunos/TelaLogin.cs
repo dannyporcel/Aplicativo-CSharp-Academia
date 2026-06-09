@@ -54,10 +54,7 @@
         private void LogarAtendente()
         {
             mskCpf.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-            // ALTERADO: String de conexão para BD_Nexus
             SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");
-
-            // ALTERADO: Tabela e colunas conforme BD_Nexus
             string selectlogin = @"SELECT cpf, senha, cargo
                                  FROM tbl_funcionarios
                                  WHERE cpf = '" + mskCpf.Text + "'AND senha = '" + txtSenha.Text + "'AND cargo IN('Recepcionista', 'Atendente', 'Administrativo')";
@@ -85,8 +82,7 @@
                         Inicial.Show();
                         this.Hide();
 
-                        // ALTERADO: Verificação de senha padrão
-                        if (txtSenha.Text == "1234")
+                        if (txtSenha.Text == "123456")
                         {
                             mskCpf.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
                             MudarSenhaAtendente NovaSenha = new MudarSenhaAtendente(mskCpf.Text);
@@ -108,10 +104,8 @@
         private void LogarGerente()
         {
             mskCpf.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-            // ALTERADO: String de conexão para BD_Nexus
             SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");
 
-            // ALTERADO: Tabela e colunas conforme BD_Nexus
             string selectlogin = @"SELECT cpf, senha, cargo
                                  FROM tbl_funcionarios
                                  WHERE cpf = '" + mskCpf.Text + "'AND senha = '" + txtSenha.Text + "'AND cargo = 'Gerente'";

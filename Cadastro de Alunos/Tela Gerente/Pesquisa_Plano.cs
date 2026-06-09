@@ -106,8 +106,6 @@ namespace Cadastro_de_Alunos
 
         /* private void preenchertxtModalidades()                                                                                                                                 
          {                                                                                                                                                                      
-
-
              connection.Open();                              
              int id = int.Parse(txtID.Text);
              String sqlSelectQuery = "select nomeModal from tbl_Modalidade where ID_Modalidade in (select ID_Modalidade from tbl_PlanoModal where ID_Plano = " + id + ")";
@@ -188,7 +186,7 @@ namespace Cadastro_de_Alunos
             if (e.KeyChar == (char)13)
             {
                 DataView dv = dt.DefaultView;
-                dv.RowFilter = string.Format("nomePlano like '%{0}%'", txtNome.Text);
+                dv.RowFilter = string.Format("nome_plano like '%{0}%'", txtNome.Text);
                 dgPesquisaPlano.DataSource = dv.ToTable();
             }
         }
@@ -205,9 +203,6 @@ namespace Cadastro_de_Alunos
             txtValor.Text = dgPesquisaPlano.CurrentRow.Cells[2].Value.ToString();
             txtObservacao.Text = dgPesquisaPlano.CurrentRow.Cells[3].Value.ToString();
             
-
-
-
         }
 
         private void btnAtualizar_Click(object sender, EventArgs e)

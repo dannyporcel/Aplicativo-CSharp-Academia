@@ -87,8 +87,6 @@ namespace Cadastro_de_Alunos
                 conn.Open();
                 SqlCommand comando = conn.CreateCommand();
                 comando.CommandType = CommandType.Text;
-
-                // ALTERADO: Tabela e coluna conforme BD_Nexus
                 comando.CommandText = "SELECT nome FROM tbl_funcionarios WHERE cpf = '" + txtCPF.Text + "'";
 
                 comando.ExecuteNonQuery();
@@ -98,7 +96,6 @@ namespace Cadastro_de_Alunos
 
                 foreach (DataRow dr in dt.Rows)
                 {
-                    // ALTERADO: Coluna 'nome' em vez de 'nomeFuncionario'
                     lblUsuario.Text = dr["nome"].ToString();
                 }
             }
@@ -122,7 +119,7 @@ namespace Cadastro_de_Alunos
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            // Método vazio - mantido conforme original
+            
         }
 
         private void logoffToolStripMenuItem_Click(object sender, EventArgs e)
@@ -132,7 +129,6 @@ namespace Cadastro_de_Alunos
             this.Hide();
         }
 
-        // ADICIONADO: Método para cadastro de alunos (se necessário)
         private void cadastroDeAlunosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form Inicial = new frmTelaCadastroAluno();

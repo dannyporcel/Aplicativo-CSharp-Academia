@@ -160,9 +160,6 @@ namespace Cadastro_de_Alunos
             }
         }
 
-		
-
-		
 
 		private void btnEditar_Click_1(object sender, EventArgs e)
 		{
@@ -438,15 +435,12 @@ namespace Cadastro_de_Alunos
 
 			}
 			
-
-
-			
 		}
        
 
         private void rbtAtivo_CheckedChanged(object sender, EventArgs e)
 		{
-			if (rbtAtivo.Checked == true)///////////TAVA ENVIANDO NADA PRO BANCO
+			if (rbtAtivo.Checked == true)
 			{
 				Situacao = "Ativo";              				
 			}
@@ -565,14 +559,6 @@ namespace Cadastro_de_Alunos
         {
 
         }
-
-
-
-
-
-
-
-
 
         /* private void PreencherCBDescricao()
          {

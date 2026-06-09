@@ -23,14 +23,12 @@ namespace Cadastro_de_Alunos
             InitializeComponent();
         }
 
-        // ALTERADO: Nome da tabela e estrutura do DataTable
         DataTable dt = new DataTable("tbl_funcionarios");
         SqlConnection connection = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp");
         SqlCommand command;
 
         public void populateDGV()
         {
-            // ALTERADO: Consulta SQL com colunas do BD_Nexus
             string selectQuery = @"SELECT 
                                 id_funcionarios as ID_Funcionario,
                                 nome as nomeFuncionario,
@@ -221,13 +219,12 @@ namespace Cadastro_de_Alunos
 
         private void Pesquisa_Funcionario_Load(object sender, EventArgs e)
         {
-            // ALTERADO: String de conexão direta (removido ConfigurationManager)
+          
             using (SqlConnection conn = new SqlConnection("Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp"))
             {
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                // ALTERADO: Consulta SQL com colunas do BD_Nexus
                 using (SqlDataAdapter da = new SqlDataAdapter(@"SELECT 
                                                             id_funcionarios as ID_Funcionario,
                                                             nome as nomeFuncionario,
@@ -274,7 +271,6 @@ namespace Cadastro_de_Alunos
             if (rdAtendente.Checked == true)
             {
                 DataView dv = dt.DefaultView;
-                // ALTERADO: Filtro para múltiplos cargos de atendimento
                 dv.RowFilter = "Cargo IN ('Recepcionista', 'Atendente', 'Administrativo')";
                 dgPesquisaFunc.DataSource = dv.ToTable();
             }
@@ -284,11 +280,9 @@ namespace Cadastro_de_Alunos
         {
             try
             {
-                // ALTERADO: Ajuste dos índices das células conforme nova consulta
                 txtNomeEditar.Text = dgPesquisaFunc.CurrentRow.Cells["nomeFuncionario"].Value.ToString();
                 mskCpf.Text = dgPesquisaFunc.CurrentRow.Cells["CPF"].Value.ToString();
-                // REMOVIDO: RG (não existe no BD_Nexus)
-                txtRG.Text = ""; // Campo mantido mas vazio
+                txtRG.Text = ""; 
                 mskDataNascimento.Text = dgPesquisaFunc.CurrentRow.Cells["dataNasc"].Value.ToString();
                 cbxSexo.Text = dgPesquisaFunc.CurrentRow.Cells["Sexo"].Value.ToString();
                 txtLogradouro.Text = dgPesquisaFunc.CurrentRow.Cells["Logradouro"].Value.ToString();
@@ -300,7 +294,6 @@ namespace Cadastro_de_Alunos
                 txtCEP.Text = dgPesquisaFunc.CurrentRow.Cells["CEP"].Value.ToString();
                 txtDDD1.Text = dgPesquisaFunc.CurrentRow.Cells["DDD1"].Value.ToString();
                 txtTelefone.Text = dgPesquisaFunc.CurrentRow.Cells["telefone"].Value.ToString();
-                // REMOVIDO: DDD2 e telefone2 (não existem no BD_Nexus)
                 txtDDD2.Text = "";
                 txtTelefone2.Text = "";
                 txtEmail.Text = dgPesquisaFunc.CurrentRow.Cells["Email"].Value.ToString();
@@ -325,7 +318,7 @@ namespace Cadastro_de_Alunos
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            // ALTERADO: Método renomeado para btnAtualizar_Click para melhor semântica
+      
             string validar = mskCpf.Text;
             mskCpf.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
 
@@ -353,8 +346,6 @@ namespace Cadastro_de_Alunos
             {
                 mskCpf.TextMaskFormat = MaskFormat.IncludePromptAndLiterals;
             }
-
-            // REMOVIDO: Validação de RG (não existe no BD_Nexus)
 
             if (txtCEP.Text == "")
             {
@@ -402,8 +393,7 @@ namespace Cadastro_de_Alunos
             {
                 if (rbAtendente.Checked == true)
                 {
-                    // ALTERADO: Cargos possíveis no BD_Nexus
-                    Cargo = "Recepcionista"; // Ou "Atendente" ou "Administrativo"
+                    Cargo = "Recepcionista";
                 }
                 else
                 {
@@ -413,7 +403,6 @@ namespace Cadastro_de_Alunos
                 mskCpf.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
                 try
                 {
-                    // ALTERADO: Query UPDATE com estrutura do BD_Nexus
                     string updateQuery = @"UPDATE tbl_funcionarios SET 
                                         nome = '" + txtNomeEditar.Text + "', " +
                                         "cpf = '" + mskCpf.Text + "', " +
@@ -443,9 +432,6 @@ namespace Cadastro_de_Alunos
                 }
             }
         }
-
-        // ... (os métodos restantes permanecem iguais - btnEditar, btnCancelar, btnLimpar, validações de KeyPress)
-        // Mantive os métodos abaixo pois não precisam de alterações significativas
 
         private void btnEditar_Click(object sender, EventArgs e)
         {

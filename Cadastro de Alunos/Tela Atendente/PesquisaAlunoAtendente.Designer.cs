@@ -112,7 +112,7 @@
             this.pnlEditar.Controls.Add(this.btnCadastroCasoInativoSelecionado);
             this.pnlEditar.Location = new System.Drawing.Point(286, 180);
             this.pnlEditar.Name = "pnlEditar";
-            this.pnlEditar.Size = new System.Drawing.Size(875, 446);
+            this.pnlEditar.Size = new System.Drawing.Size(712, 446);
             this.pnlEditar.TabIndex = 169;
             // 
             // btnLimpar
@@ -590,7 +590,7 @@
             this.dgPesquisaAluno.Name = "dgPesquisaAluno";
             this.dgPesquisaAluno.ReadOnly = true;
             this.dgPesquisaAluno.RowHeadersWidth = 10;
-            this.dgPesquisaAluno.Size = new System.Drawing.Size(798, 121);
+            this.dgPesquisaAluno.Size = new System.Drawing.Size(635, 121);
             this.dgPesquisaAluno.TabIndex = 167;
             this.dgPesquisaAluno.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgPesquisaAluno_MouseClick);
             // 
@@ -659,14 +659,14 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.Blue;
+            this.panel1.BackColor = System.Drawing.Color.Firebrick;
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.ForeColor = System.Drawing.SystemColors.Control;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1173, 42);
+            this.panel1.Size = new System.Drawing.Size(1019, 42);
             this.panel1.TabIndex = 170;
             // 
             // pictureBox2
@@ -702,7 +702,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1173, 636);
+            this.ClientSize = new System.Drawing.Size(1019, 636);
             this.ControlBox = false;
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.panel1);

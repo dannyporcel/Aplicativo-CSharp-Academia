@@ -35,7 +35,6 @@ namespace Cadastro_de_Alunos
             InitializeComponent();
         }
 
-        // ADICIONADO: Método para obter o status selecionado
         private string ObterStatusSelecionado()
         {
             if (rbAtivo.Checked)
@@ -65,8 +64,6 @@ namespace Cadastro_de_Alunos
                 try
                 {
                     DateTime dataAtual = DateTime.Now;
-
-                    // ADICIONADO: Obter o status selecionado
                     string status = ObterStatusSelecionado();
 
                     conn.Open();
@@ -81,16 +78,10 @@ namespace Cadastro_de_Alunos
 
                     comando.CommandText = insertQuery;
                     comando.Parameters.Clear();
-
-                    // Parâmetros conforme estrutura atualizada do BD_Nexus
                     comando.Parameters.Add("@nome_modal", SqlDbType.VarChar, 100).Value = txtNome.Text.Trim();
                     comando.Parameters.Add("@descricao_modal", SqlDbType.VarChar, 100).Value = txtDescricao.Text.Trim();
                     comando.Parameters.AddWithValue("@data_cadastro", dataAtual);
-
-                    // ALTERADO: Usar o status selecionado em vez de "Ativo" fixo
                     comando.Parameters.Add("@modal_situacao", SqlDbType.VarChar, 100).Value = status;
-
-                    // ID do funcionário (por enquanto NULL - pode ser ajustado posteriormente)
                     comando.Parameters.AddWithValue("@id_funcionarios", DBNull.Value);
 
                     comando.ExecuteNonQuery();
@@ -101,7 +92,7 @@ namespace Cadastro_de_Alunos
                     // Limpar campos
                     txtNome.Clear();
                     txtDescricao.Clear();
-                    rbAtivo.Checked = true; // ADICIONADO: Reset para Ativo como padrão
+                    rbAtivo.Checked = true;
 
                     MessageBox.Show("Modalidade Cadastrada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -125,7 +116,7 @@ namespace Cadastro_de_Alunos
         {
             txtNome.Clear();
             txtDescricao.Clear();
-            rbAtivo.Checked = true; // ADICIONADO: Reset para Ativo como padrão
+            rbAtivo.Checked = true;
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -155,8 +146,6 @@ namespace Cadastro_de_Alunos
         {
             comando.Connection = conn;
             carregaLista();
-
-            // ADICIONADO: Definir Ativo como padrão ao carregar o formulário
             rbAtivo.Checked = true;
         }
 
@@ -166,12 +155,10 @@ namespace Cadastro_de_Alunos
                 e.Handled = true;
         }
 
-        // ADICIONADO: Eventos para garantir que apenas um RadioButton esteja selecionado
         private void rbAtivo_CheckedChanged(object sender, EventArgs e)
         {
             if (rbAtivo.Checked)
             {
-                // Garante que apenas um esteja selecionado
                 rbInativo.Checked = false;
             }
         }
@@ -180,7 +167,6 @@ namespace Cadastro_de_Alunos
         {
             if (rbInativo.Checked)
             {
-                // Garante que apenas um esteja selecionado
                 rbAtivo.Checked = false;
             }
         }

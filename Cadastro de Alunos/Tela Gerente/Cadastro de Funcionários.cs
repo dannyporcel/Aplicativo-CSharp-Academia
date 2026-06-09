@@ -79,6 +79,7 @@ namespace Cadastro_de_Alunos
                 InserirPermissao(idFuncionarioInserido);
 
                 MessageBox.Show("Funcionário cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Sua senha padrão de primeiro acesso é '123456'!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 LimparCampos();
                 txtNome.Focus();
             }
@@ -93,7 +94,6 @@ namespace Cadastro_de_Alunos
             }
         }
 
-        // ADICIONADO: Método para validar todos os campos
         private bool ValidarCamposObrigatorios()
         {
             mskCpf.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
@@ -180,7 +180,6 @@ namespace Cadastro_de_Alunos
             return true;
         }
 
-        // CORRIGIDO: Método para inserir funcionário
         private int InserirFuncionario(string cpfSemFormatacao, byte[] imagebt)
         {
             int proximoId = ObterProximoId("tbl_funcionarios", "id_funcionarios");
@@ -201,7 +200,6 @@ namespace Cadastro_de_Alunos
 
             using (SqlCommand comando = new SqlCommand(insertFuncionario, conn))
             {
-                // Parâmetros com tipos explícitos
                 comando.Parameters.Add("@id_funcionarios", SqlDbType.Int).Value = proximoId;
                 comando.Parameters.Add("@nome", SqlDbType.VarChar, 100).Value = txtNome.Text.Trim();
                 comando.Parameters.Add("@genero", SqlDbType.VarChar, 3).Value = cbxSexo.Text;
@@ -255,7 +253,6 @@ namespace Cadastro_de_Alunos
                 else
                     comando.Parameters.Add("@senha", SqlDbType.Decimal).Value = 1234m;
 
-                // CORREÇÃO DO ERRO: Tratamento correto do varbinary
                 if (imagebt != null && imagebt.Length > 0)
                     comando.Parameters.Add("@foto", SqlDbType.VarBinary, -1).Value = imagebt;
                 else
@@ -272,7 +269,6 @@ namespace Cadastro_de_Alunos
             }
         }
 
-        // CORRIGIDO: Método para inserir professor
         private void InserirProfessor(int idFuncionario, byte[] imagebt)
         {
             int proximoIdProfessor = ObterProximoId("tbl_professor", "id_professor");
@@ -295,7 +291,6 @@ namespace Cadastro_de_Alunos
             {
                 cmdProfessor.Parameters.Add("@id_professor", SqlDbType.Int).Value = proximoIdProfessor;
 
-                // CORREÇÃO DO ERRO: Tratamento correto do varbinary
                 if (imagebt != null && imagebt.Length > 0)
                     cmdProfessor.Parameters.Add("@foto", SqlDbType.VarBinary, -1).Value = imagebt;
                 else
@@ -349,7 +344,6 @@ namespace Cadastro_de_Alunos
 
                 cmdProfessor.ExecuteNonQuery();
 
-                // Atualizar funcionário com o id_professor
                 string updateFuncionario = "UPDATE tbl_funcionarios SET id_professor = @id_professor WHERE id_funcionarios = @id_funcionarios";
                 using (SqlCommand cmdUpdate = new SqlCommand(updateFuncionario, conn))
                 {
@@ -378,7 +372,7 @@ namespace Cadastro_de_Alunos
                 tipoPermissao = "Acesso Total";
                 descricao = "Acesso completo ao sistema";
             }
-            else if (Perfil == "Recepcionista")
+            else if (Perfil == "Atendente")
             {
                 tipoPermissao = "Acesso Limitado";
                 descricao = "Acesso ao cadastro e consulta";
@@ -493,7 +487,6 @@ namespace Cadastro_de_Alunos
             txtCREF.Clear();
         }
 
-        // Outros métodos existentes (btnVoltar, btnLimpar, etc.)
         private void btnVoltar_Click(object sender, EventArgs e)
         {
             Close();
@@ -534,6 +527,18 @@ namespace Cadastro_de_Alunos
                     MessageBox.Show("Erro ao carregar imagem: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void rbAtendente_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbAtendente.Checked)
+                Perfil = "Atendente";
+        }
+
+        private void rbGerente_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbGerente.Checked)
+                Perfil = "Gerente";
         }
     }
 }

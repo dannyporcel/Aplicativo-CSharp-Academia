@@ -14,7 +14,6 @@ namespace Cadastro_de_Alunos
 {
     public partial class Tela_Pagamento : Form
     {
-        // Removida a conexão global para evitar conflitos
         string connectionString = "Data Source=localhost;Initial Catalog=BD_Nexus;User ID=sa;Password=etesp";
         DataTable dt = new DataTable("tbl_aluno");
 
@@ -29,13 +28,6 @@ namespace Cadastro_de_Alunos
         {
             return new SqlConnection(connectionString);
         }
-
-        // Método para converter DateTime para formato YYYYMMDD (int)
-        private int ConvertToIntDate(DateTime date)
-        {
-            return date.Year * 10000 + date.Month * 100 + date.Day;
-        }
-
         public void populateDGV()
         {
             using (SqlConnection conn = CreateConnection())
@@ -91,109 +83,6 @@ namespace Cadastro_de_Alunos
             }
             preencher_lbPlanos();
             populateDGV();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (txtDescricao.Text == "")
-            {
-                MessageBox.Show("Selecione um plano");
-            }
-            else if (txtNome.Text == "")
-            {
-                MessageBox.Show("Selecione um aluno");
-            }
-            else
-            {
-                // Verificar se o aluno já tem pagamento em aberto para este mês
-                int pagamentosExistentes = 0;
-                using (SqlConnection conn = CreateConnection())
-                {
-                    conn.Open();
-
-                    // CORREÇÃO: Converter datas para inteiro no formato YYYYMMDD
-                    int mesAtual = DateTime.Now.Year * 10000 + DateTime.Now.Month * 100 + 1; // Primeiro dia do mês
-                    int proximoMes = DateTime.Now.AddMonths(1).Year * 10000 + DateTime.Now.AddMonths(1).Month * 100 + 1; // Primeiro dia do próximo mês
-
-                    SqlCommand verificaCmd = new SqlCommand(
-                        "SELECT COUNT(*) FROM tbl_pagamento WHERE id_aluno = @id_aluno AND dataVencimento >= @mesAtual AND dataVencimento < @proximoMes",
-                        conn);
-                    verificaCmd.Parameters.AddWithValue("@id_aluno", int.Parse(txtID_Aluno.Text));
-                    verificaCmd.Parameters.AddWithValue("@mesAtual", mesAtual);
-                    verificaCmd.Parameters.AddWithValue("@proximoMes", proximoMes);
-
-                    pagamentosExistentes = (int)verificaCmd.ExecuteScalar();
-                } // A conexão é fechada automaticamente aqui pelo using
-
-                if (pagamentosExistentes > 0)
-                {
-                    MessageBox.Show("Este aluno já possui um pagamento para este mês", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    DialogResult confirm = MessageBox.Show("Deseja gerar um novo pagamento mesmo assim?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    if (confirm == DialogResult.No)
-                    {
-                        return;
-                    }
-                }
-
-                // Realizar o pagamento
-                try
-                {
-                    DateTime dataPagamento = DateTime.Now;
-                    DateTime dataVencimento = dataPagamento.AddMonths(1);
-
-                    // CORREÇÃO: Converter datas para o formato inteiro YYYYMMDD
-                    int dataPagamentoInt = ConvertToIntDate(dataPagamento);
-                    int dataVencimentoInt = ConvertToIntDate(dataVencimento);
-
-                    using (SqlConnection conn = CreateConnection())
-                    {
-                        conn.Open();
-
-                        // CORREÇÃO: Usar valores inteiros para as datas
-                        string insertQuery = @"INSERT INTO tbl_pagamento (id_pagamento, dataPagamento, dataVencimento, valor, id_aluno, id_plano) 
-                                             VALUES ((SELECT ISNULL(MAX(id_pagamento), 0) + 1 FROM tbl_pagamento), 
-                                             @dataPagamento, @dataVencimento, @valor, @id_aluno, @id_plano)";
-
-                        SqlCommand comando = new SqlCommand(insertQuery, conn);
-                        comando.Parameters.AddWithValue("@dataPagamento", dataPagamentoInt);
-                        comando.Parameters.AddWithValue("@dataVencimento", dataVencimentoInt);
-                        comando.Parameters.AddWithValue("@valor", decimal.Parse(txtValor.Text));
-                        comando.Parameters.AddWithValue("@id_aluno", int.Parse(txtID_Aluno.Text));
-                        comando.Parameters.AddWithValue("@id_plano", int.Parse(txtID_Plano.Text));
-
-                        int rowsAffected = comando.ExecuteNonQuery();
-
-                        if (rowsAffected == 1)
-                        {
-                            // Segundo: Atualizar data_pg do aluno (esta coluna é datetime, então manter como está)
-                            string updateAluno = "UPDATE tbl_aluno SET data_pg = @dataPagamento WHERE id_aluno = @id_aluno";
-                            comando = new SqlCommand(updateAluno, conn);
-                            comando.Parameters.AddWithValue("@dataPagamento", dataPagamento);
-                            comando.Parameters.AddWithValue("@id_aluno", int.Parse(txtID_Aluno.Text));
-                            comando.ExecuteNonQuery();
-
-                            MessageBox.Show("Pagamento realizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            LimparCampos();
-                        }
-                    } // A conexão é fechada automaticamente aqui
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Erro ao realizar pagamento: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void LimparCampos()
-        {
-            txtPlanoEscolhido.Clear();
-            txtDescricao.Clear();
-            txtValor.Clear();
-            txtID_Aluno.Clear();
-            txtID_Plano.Clear();
-            txtCPF.Clear();
-            txtNome.Clear();
         }
 
         private void dgPesquisaAluno_MouseClick(object sender, MouseEventArgs e)

@@ -67,7 +67,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.panel1.BackColor = System.Drawing.Color.Black;
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -82,9 +82,9 @@
             this.label7.ForeColor = System.Drawing.SystemColors.Control;
             this.label7.Location = new System.Drawing.Point(53, 9);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(121, 25);
+            this.label7.Size = new System.Drawing.Size(168, 25);
             this.label7.TabIndex = 5;
-            this.label7.Text = "Pagamento";
+            this.label7.Text = "Planos Vigentes";
             // 
             // pictureBox2
             // 
@@ -99,15 +99,16 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(13, 248);
+            this.pictureBox1.Location = new System.Drawing.Point(26, 251);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(255, 261);
+            this.pictureBox1.Size = new System.Drawing.Size(242, 258);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
             // txtID_Plano
             // 
-            this.txtID_Plano.Location = new System.Drawing.Point(104, 521);
+            this.txtID_Plano.Location = new System.Drawing.Point(104, 553);
             this.txtID_Plano.Name = "txtID_Plano";
             this.txtID_Plano.Size = new System.Drawing.Size(55, 20);
             this.txtID_Plano.TabIndex = 5;
@@ -117,7 +118,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(40, 32);
+            this.label2.Location = new System.Drawing.Point(35, 32);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(171, 25);
             this.label2.TabIndex = 6;
@@ -159,21 +160,21 @@
             this.txtPlanoEscolhido.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPlanoEscolhido.Location = new System.Drawing.Point(497, 380);
             this.txtPlanoEscolhido.Name = "txtPlanoEscolhido";
-            this.txtPlanoEscolhido.Size = new System.Drawing.Size(304, 31);
+            this.txtPlanoEscolhido.Size = new System.Drawing.Size(217, 31);
             this.txtPlanoEscolhido.TabIndex = 12;
             // 
             // txtCPF
             // 
             this.txtCPF.Enabled = false;
             this.txtCPF.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCPF.Location = new System.Drawing.Point(178, 79);
+            this.txtCPF.Location = new System.Drawing.Point(101, 64);
             this.txtCPF.Name = "txtCPF";
-            this.txtCPF.Size = new System.Drawing.Size(155, 31);
+            this.txtCPF.Size = new System.Drawing.Size(277, 31);
             this.txtCPF.TabIndex = 13;
             // 
             // txtID_Aluno
             // 
-            this.txtID_Aluno.Location = new System.Drawing.Point(26, 521);
+            this.txtID_Aluno.Location = new System.Drawing.Point(26, 553);
             this.txtID_Aluno.Name = "txtID_Aluno";
             this.txtID_Aluno.Size = new System.Drawing.Size(55, 20);
             this.txtID_Aluno.TabIndex = 14;
@@ -196,12 +197,12 @@
             this.txtDescricao.Location = new System.Drawing.Point(218, 69);
             this.txtDescricao.Multiline = true;
             this.txtDescricao.Name = "txtDescricao";
-            this.txtDescricao.Size = new System.Drawing.Size(304, 94);
+            this.txtDescricao.Size = new System.Drawing.Size(217, 94);
             this.txtDescricao.TabIndex = 16;
             // 
             // txtSituacao
             // 
-            this.txtSituacao.Location = new System.Drawing.Point(180, 521);
+            this.txtSituacao.Location = new System.Drawing.Point(175, 553);
             this.txtSituacao.Name = "txtSituacao";
             this.txtSituacao.Size = new System.Drawing.Size(55, 20);
             this.txtSituacao.TabIndex = 17;
@@ -212,7 +213,7 @@
             this.dgPesquisaAluno.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgPesquisaAluno.Location = new System.Drawing.Point(363, 70);
             this.dgPesquisaAluno.Name = "dgPesquisaAluno";
-            this.dgPesquisaAluno.Size = new System.Drawing.Size(454, 124);
+            this.dgPesquisaAluno.Size = new System.Drawing.Size(380, 124);
             this.dgPesquisaAluno.TabIndex = 18;
             this.dgPesquisaAluno.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgPesquisaAluno_MouseClick);
             // 
@@ -272,7 +273,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(79, 33);
+            this.label8.Location = new System.Drawing.Point(21, 31);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(74, 25);
             this.label8.TabIndex = 24;
@@ -287,7 +288,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(279, 218);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(534, 124);
+            this.groupBox2.Size = new System.Drawing.Size(464, 124);
             this.groupBox2.TabIndex = 25;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Aluno Escolhido:";
@@ -296,7 +297,7 @@
             // 
             this.txtNome.Enabled = false;
             this.txtNome.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNome.Location = new System.Drawing.Point(178, 33);
+            this.txtNome.Location = new System.Drawing.Point(101, 31);
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(277, 31);
             this.txtNome.TabIndex = 26;
@@ -305,7 +306,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(93, 82);
+            this.label9.Location = new System.Drawing.Point(35, 67);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(60, 25);
             this.label9.TabIndex = 25;
@@ -321,7 +322,7 @@
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(279, 348);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(538, 224);
+            this.groupBox3.Size = new System.Drawing.Size(464, 219);
             this.groupBox3.TabIndex = 26;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Pagamento";
@@ -339,7 +340,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(837, 596);
+            this.ClientSize = new System.Drawing.Size(767, 585);
             this.ControlBox = false;
             this.Controls.Add(this.lblID_Aluno);
             this.Controls.Add(this.groupBox2);

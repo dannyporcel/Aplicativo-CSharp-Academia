@@ -14,8 +14,7 @@ namespace Cadastro_de_Alunos
 {
     public partial class Pesquisa_Professor : Form
     {
-		
-		
+
         public Pesquisa_Professor()
         {
             InitializeComponent();

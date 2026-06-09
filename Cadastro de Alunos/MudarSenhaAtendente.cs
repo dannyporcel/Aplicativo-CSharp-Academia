@@ -45,7 +45,7 @@ namespace Cadastro_de_Alunos
                 txtConfirmarSenha.Clear();
                 txtConfirmarSenha.Focus();
             }
-            else if(txtSenha.Text == "1234")
+            else if(txtSenha.Text == "123456")
             {
                 MessageBox.Show("A nova senha não pode ser igual a sua antiga senha ", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 txtSenha.Clear();
@@ -54,7 +54,7 @@ namespace Cadastro_de_Alunos
             }
             else
             {                                                   
-                string updateQuery = "Update tbl_Funcionario set Senha = '" + txtConfirmarSenha.Text + "', CPF='"+mskCPF.Text+"' where Senha = '1234' AND CPF = '"+mskCPF.Text+"' ";
+                string updateQuery = "Update tbl_funcionarios set senha = '" + txtConfirmarSenha.Text + "', cpf='"+mskCPF.Text+"' where senha = '123456' AND cpf = '"+mskCPF.Text+"' ";
                 executeMyQuery(updateQuery);
                 Close();
             }
@@ -99,7 +99,7 @@ namespace Cadastro_de_Alunos
                 }
                 else
                 {
-                    MessageBox.Show("Falha ao Atualizar");
+                    MessageBox.Show("Falha ao Atualizar!");
                 }
             }
             catch (Exception ex)

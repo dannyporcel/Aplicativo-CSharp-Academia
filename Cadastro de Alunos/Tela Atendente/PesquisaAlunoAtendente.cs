@@ -31,7 +31,6 @@ namespace Cadastro_de_Alunos
         {
             using (SqlConnection connection = CreateConnection())
             {
-                // CORREÇÃO: Query adaptada para BD_Nexus com JOIN nas tabelas corretas
                 string selectQuery = @"
                     SELECT 
                         a.id_aluno,
@@ -66,7 +65,6 @@ namespace Cadastro_de_Alunos
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
 
-                // CORREÇÃO: Query adaptada para BD_Nexus
                 using (SqlDataAdapter da = new SqlDataAdapter(@"
                     SELECT 
                         a.id_aluno,
@@ -120,7 +118,6 @@ namespace Cadastro_de_Alunos
                 return;
             }
 
-            // CORREÇÃO: Validação de CPF adaptada
             if (CPF.ValidaCPF(validar))
             {
                 //enviar dados ao banco
@@ -140,7 +137,6 @@ namespace Cadastro_de_Alunos
                 return;
             }
 
-            // CORREÇÃO: Removidas validações de RG (não existe no BD_Nexus)
 
             if (txtCEP.Text == "")
             {
@@ -190,8 +186,6 @@ namespace Cadastro_de_Alunos
                 using (SqlConnection conn = CreateConnection())
                 {
                     conn.Open();
-
-                    // CORREÇÃO: Atualizar tbl_aluno
                     string updateAlunoQuery = @"
                         UPDATE tbl_aluno 
                         SET 
@@ -217,8 +211,7 @@ namespace Cadastro_de_Alunos
 
                     comandoAluno.ExecuteNonQuery();
 
-                    // CORREÇÃO: Atualizar tbl_enderecoAluno
-                    // Primeiro precisamos obter o id_enderecoAluno do aluno
+           
                     string getEnderecoId = "SELECT id_enderecoAluno FROM tbl_aluno WHERE id_aluno = @id_aluno";
                     SqlCommand cmdEnderecoId = new SqlCommand(getEnderecoId, conn);
                     cmdEnderecoId.Parameters.AddWithValue("@id_aluno", int.Parse(txtID.Text));
@@ -263,8 +256,7 @@ namespace Cadastro_de_Alunos
         {
             if (dgPesquisaAluno.CurrentRow != null)
             {
-                // CORREÇÃO: Mapeamento correto dos campos do BD_Nexus
-                // A ordem deve corresponder à query do populateDGV
+ 
                 txtID.Text = dgPesquisaAluno.CurrentRow.Cells[0].Value.ToString(); // id_aluno
                 txtNomeEditar.Text = dgPesquisaAluno.CurrentRow.Cells[1].Value.ToString(); // nome
                 mskCPF.Text = dgPesquisaAluno.CurrentRow.Cells[2].Value.ToString(); // cpf
@@ -283,7 +275,6 @@ namespace Cadastro_de_Alunos
             }
         }
 
-        // CORREÇÃO: Métodos removidos ou adaptados
         private void txtNome_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)13)
@@ -303,9 +294,6 @@ namespace Cadastro_de_Alunos
                 dgPesquisaAluno.DataSource = dv.ToTable();
             }
         }
-
-        // CORREÇÃO: Removidos métodos relacionados à situação (não existe no BD_Nexus)
-        // rdAtivo_CheckedChanged, rdInativo_CheckedChanged, rbtAtivo_CheckedChanged, rbtInativo_CheckedChanged
 
         private void btnLimpar_Click(object sender, EventArgs e)
         {
@@ -336,7 +324,6 @@ namespace Cadastro_de_Alunos
             Close();
         }
 
-        // CORREÇÃO: Mantidos apenas os métodos de validação de entrada
         private void mskCPF_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar)) e.Handled = true;
@@ -371,8 +358,6 @@ namespace Cadastro_de_Alunos
         {
             if (char.IsNumber(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar)) e.Handled = true;
         }
-
-        // CORREÇÃO: Métodos de edição/cancelamento mantidos
         private void btnEditar_Click(object sender, EventArgs e)
         {
             txtNomeEditar.Enabled = true;

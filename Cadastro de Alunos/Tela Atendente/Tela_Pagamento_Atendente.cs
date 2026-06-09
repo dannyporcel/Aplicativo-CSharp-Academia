@@ -37,7 +37,6 @@ namespace Cadastro_de_Alunos
         {
             using (SqlConnection conn = CreateConnection())
             {
-                // CORREÇÃO: Query adaptada para BD_Nexus
                 string selectQuery = "SELECT nome, cpf, id_aluno from tbl_aluno";
                 SqlDataAdapter da = new SqlDataAdapter(selectQuery, conn);
                 DataTable tabel = new DataTable();
@@ -53,7 +52,6 @@ namespace Cadastro_de_Alunos
                 using (SqlConnection conn = CreateConnection())
                 {
                     conn.Open();
-                    // CORREÇÃO: Query adaptada para BD_Nexus
                     string scom = "SELECT id_plano, nome_plano, valor_plano, observacao FROM tbl_plano";
                     SqlDataAdapter da = new SqlDataAdapter(scom, conn);
                     DataTable dtResultado = new DataTable();
@@ -80,7 +78,6 @@ namespace Cadastro_de_Alunos
             {
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
-                // CORREÇÃO: Query adaptada para BD_Nexus
                 using (SqlDataAdapter da = new SqlDataAdapter("SELECT nome, cpf, id_aluno from tbl_aluno", conn))
                 {
                     da.Fill(dt);
@@ -95,14 +92,12 @@ namespace Cadastro_de_Alunos
         {
             if (lbPlanos.SelectedItem != null)
             {
-                // CORREÇÃO: Obter o valor correto do plano selecionado
                 DataRowView selectedRow = (DataRowView)lbPlanos.SelectedItem;
                 int idPlano = Convert.ToInt32(selectedRow["id_plano"]);
 
                 using (SqlConnection conn = CreateConnection())
                 {
                     conn.Open();
-                    // CORREÇÃO: Usar parameterized query
                     SqlCommand comando = new SqlCommand("SELECT * FROM tbl_plano WHERE id_plano = @id_plano", conn);
                     comando.Parameters.AddWithValue("@id_plano", idPlano);
 
@@ -139,13 +134,10 @@ namespace Cadastro_de_Alunos
             }
             else
             {
-                // CORREÇÃO: Verificar se o aluno já tem pagamento em aberto para este mês
                 int pagamentosExistentes = 0;
                 using (SqlConnection conn = CreateConnection())
                 {
                     conn.Open();
-
-                    // CORREÇÃO: Converter datas para inteiro no formato YYYYMMDD
                     int mesAtual = DateTime.Now.Year * 10000 + DateTime.Now.Month * 100 + 1;
                     int proximoMes = DateTime.Now.AddMonths(1).Year * 10000 + DateTime.Now.AddMonths(1).Month * 100 + 1;
 
@@ -169,22 +161,17 @@ namespace Cadastro_de_Alunos
                         return;
                     }
                 }
-
-                // CORREÇÃO: Realizar o pagamento na tabela tbl_pagamento
                 try
                 {
                     DateTime dataPagamento = DateTime.Now;
                     DateTime dataVencimento = dataPagamento.AddMonths(1);
 
-                    // CORREÇÃO: Converter datas para o formato inteiro YYYYMMDD
                     int dataPagamentoInt = ConvertToIntDate(dataPagamento);
                     int dataVencimentoInt = ConvertToIntDate(dataVencimento);
 
                     using (SqlConnection conn = CreateConnection())
                     {
                         conn.Open();
-
-                        // CORREÇÃO: Inserir na tabela tbl_pagamento
                         string insertQuery = @"INSERT INTO tbl_pagamento (id_pagamento, dataPagamento, dataVencimento, valor, id_aluno, id_plano) 
                                              VALUES ((SELECT ISNULL(MAX(id_pagamento), 0) + 1 FROM tbl_pagamento), 
                                              @dataPagamento, @dataVencimento, @valor, @id_aluno, @id_plano)";
@@ -200,7 +187,6 @@ namespace Cadastro_de_Alunos
 
                         if (rowsAffected == 1)
                         {
-                            // CORREÇÃO: Atualizar data_pg do aluno
                             string updateAluno = "UPDATE tbl_aluno SET data_pg = @dataPagamento WHERE id_aluno = @id_aluno";
                             comando = new SqlCommand(updateAluno, conn);
                             comando.Parameters.AddWithValue("@dataPagamento", dataPagamento);

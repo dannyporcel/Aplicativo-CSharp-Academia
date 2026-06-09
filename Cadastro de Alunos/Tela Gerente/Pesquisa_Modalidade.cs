@@ -29,7 +29,6 @@ namespace Cadastro_de_Alunos
 
         public void populateDGV()
         {
-            // CORREÇÃO: Usar os nomes reais das colunas do banco
             string selectQuery = "SELECT id_modalidade AS ID_Modalidade, nome_modal AS nomeModal, descricao_modal AS descricaoModal, modal_situacao AS modalSituacao, data_cadastro FROM tbl_modalidade";
             SqlDataAdapter da = new SqlDataAdapter(selectQuery, connection);
             DataTable table = new DataTable();
@@ -171,7 +170,6 @@ namespace Cadastro_de_Alunos
             {
                 if (conn.State == ConnectionState.Closed)
                     conn.Open();
-                // CORREÇÃO: Usar nomes reais das colunas com aliases
                 using (SqlDataAdapter da = new SqlDataAdapter("SELECT id_modalidade AS ID_Modalidade, nome_modal AS nomeModal, descricao_modal AS descricaoModal, modal_situacao AS modalSituacao, data_cadastro FROM tbl_modalidade", conn))
                 {
                     da.Fill(dt);
@@ -236,7 +234,6 @@ namespace Cadastro_de_Alunos
             {
                 try
                 {
-                    // CORREÇÃO: Usar os nomes reais das colunas do banco
                     string updateQuery = "UPDATE tbl_modalidade SET nome_modal='" + txtNomeEditar.Text +
                                         "', descricao_modal='" + txtDescricao.Text +
                                         "', modal_situacao ='" + situacao + "' " +

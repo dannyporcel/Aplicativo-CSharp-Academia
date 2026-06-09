@@ -324,8 +324,6 @@ namespace Cadastro_de_Alunos
 
 		}
 		
-
-		
 		//CADASTRO CASO O ALUNO ESTIVER NO ESTADO INATIVO
 		private void btnCadastroCasoInativoSelecionado_Click(object sender, EventArgs e)
 		{

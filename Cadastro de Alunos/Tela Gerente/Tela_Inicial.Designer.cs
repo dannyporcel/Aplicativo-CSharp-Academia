@@ -140,8 +140,8 @@
             this.sairToolStripMenuItem.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.sairToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            this.sairToolStripMenuItem.Size = new System.Drawing.Size(130, 38);
-            this.sairToolStripMenuItem.Text = "Tela Pagamento";
+            this.sairToolStripMenuItem.Size = new System.Drawing.Size(132, 38);
+            this.sairToolStripMenuItem.Text = "Planos Vigentes";
             this.sairToolStripMenuItem.Click += new System.EventHandler(this.sairToolStripMenuItem_Click);
             // 
             // logoffToolStripMenuItem
