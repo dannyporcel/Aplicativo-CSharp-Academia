@@ -300,7 +300,7 @@ namespace Cadastro_de_Alunos
                 cmdProfessor.Parameters.Add("@nome_social", SqlDbType.VarChar, 100).Value = DBNull.Value;
                 cmdProfessor.Parameters.Add("@genero", SqlDbType.VarChar, 3).Value = cbxSexo.Text;
                 cmdProfessor.Parameters.Add("@email", SqlDbType.VarChar, 100).Value = txtEmail.Text.Trim();
-                cmdProfessor.Parameters.Add("@senha", SqlDbType.VarChar, 255).Value = "prof123";
+                cmdProfessor.Parameters.Add("@senha", SqlDbType.VarChar, 255).Value = "123456";
 
                 decimal crefDecimal;
                 if (decimal.TryParse(txtCREF.Text, out crefDecimal))

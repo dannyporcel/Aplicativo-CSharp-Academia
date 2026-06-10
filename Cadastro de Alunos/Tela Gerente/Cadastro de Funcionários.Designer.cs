@@ -609,7 +609,7 @@
             this.txtCREF.MaxLength = 10;
             this.txtCREF.Multiline = true;
             this.txtCREF.Name = "txtCREF";
-            this.txtCREF.Size = new System.Drawing.Size(120, 38);
+            this.txtCREF.Size = new System.Drawing.Size(215, 38);
             this.txtCREF.TabIndex = 16;
             this.txtCREF.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCREF_KeyPress);
             // 
