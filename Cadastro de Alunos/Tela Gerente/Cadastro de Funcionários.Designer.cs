@@ -277,7 +277,7 @@
             this.mskDataNascimento.Location = new System.Drawing.Point(625, 85);
             this.mskDataNascimento.Mask = "00/00/0000";
             this.mskDataNascimento.Name = "mskDataNascimento";
-            this.mskDataNascimento.Size = new System.Drawing.Size(139, 38);
+            this.mskDataNascimento.Size = new System.Drawing.Size(145, 38);
             this.mskDataNascimento.TabIndex = 4;
             this.mskDataNascimento.ValidatingType = typeof(System.DateTime);
             // 
@@ -285,7 +285,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(444, 21);
+            this.label4.Location = new System.Drawing.Point(488, 21);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(131, 31);
             this.label4.TabIndex = 15;
@@ -320,7 +320,7 @@
             "Masculino",
             "Feminino",
             "Outro"});
-            this.cbxSexo.Location = new System.Drawing.Point(581, 18);
+            this.cbxSexo.Location = new System.Drawing.Point(625, 18);
             this.cbxSexo.Name = "cbxSexo";
             this.cbxSexo.Size = new System.Drawing.Size(172, 39);
             this.cbxSexo.TabIndex = 2;
@@ -604,12 +604,14 @@
             // 
             // txtCREF
             // 
+            this.txtCREF.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.25F);
             this.txtCREF.Location = new System.Drawing.Point(619, 433);
             this.txtCREF.MaxLength = 10;
             this.txtCREF.Multiline = true;
             this.txtCREF.Name = "txtCREF";
             this.txtCREF.Size = new System.Drawing.Size(120, 38);
             this.txtCREF.TabIndex = 16;
+            this.txtCREF.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCREF_KeyPress);
             // 
             // gbPermissoesProfessor
             // 

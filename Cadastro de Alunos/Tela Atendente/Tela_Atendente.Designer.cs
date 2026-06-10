@@ -69,8 +69,8 @@
             // 
             this.logoffToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.logoffToolStripMenuItem.Name = "logoffToolStripMenuItem";
-            this.logoffToolStripMenuItem.Size = new System.Drawing.Size(151, 38);
-            this.logoffToolStripMenuItem.Text = "Tela de Pagamento";
+            this.logoffToolStripMenuItem.Size = new System.Drawing.Size(124, 38);
+            this.logoffToolStripMenuItem.Text = "Situação Plano";
             this.logoffToolStripMenuItem.Click += new System.EventHandler(this.logoffToolStripMenuItem_Click);
             // 
             // logoffToolStripMenuItem1
@@ -133,7 +133,7 @@
             // 
             // txtCPF
             // 
-            this.txtCPF.Location = new System.Drawing.Point(58, 554);
+            this.txtCPF.Location = new System.Drawing.Point(12, 547);
             this.txtCPF.Name = "txtCPF";
             this.txtCPF.Size = new System.Drawing.Size(100, 20);
             this.txtCPF.TabIndex = 159;

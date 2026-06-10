@@ -540,5 +540,10 @@ namespace Cadastro_de_Alunos
             if (rbGerente.Checked)
                 Perfil = "Gerente";
         }
+
+        private void txtCREF_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsLetter(e.KeyChar) || char.IsPunctuation(e.KeyChar) || char.IsSymbol(e.KeyChar)) e.Handled = true;
+        }
     }
 }

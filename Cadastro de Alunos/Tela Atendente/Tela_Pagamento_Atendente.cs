@@ -56,14 +56,9 @@ namespace Cadastro_de_Alunos
                     SqlDataAdapter da = new SqlDataAdapter(scom, conn);
                     DataTable dtResultado = new DataTable();
                     dtResultado.Clear();
-                    lbPlanos.DataSource = null;
+                    
                     da.Fill(dtResultado);
 
-                    lbPlanos.DataSource = dtResultado;
-                    lbPlanos.DisplayMember = "nome_plano";
-                    lbPlanos.ValueMember = "id_plano";
-                    lbPlanos.SelectedItem = null;
-                    lbPlanos.Refresh();
                 }
             }
             catch (SqlException sqle)
@@ -88,140 +83,34 @@ namespace Cadastro_de_Alunos
             populateDGV();
         }
 
-        private void lbPlanos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (lbPlanos.SelectedItem != null)
-            {
-                DataRowView selectedRow = (DataRowView)lbPlanos.SelectedItem;
-                int idPlano = Convert.ToInt32(selectedRow["id_plano"]);
-
-                using (SqlConnection conn = CreateConnection())
-                {
-                    conn.Open();
-                    SqlCommand comando = new SqlCommand("SELECT * FROM tbl_plano WHERE id_plano = @id_plano", conn);
-                    comando.Parameters.AddWithValue("@id_plano", idPlano);
-
-                    DataTable dt = new DataTable();
-                    SqlDataAdapter da = new SqlDataAdapter(comando);
-                    da.Fill(dt);
-
-                    if (dt.Rows.Count > 0)
-                    {
-                        DataRow dr = dt.Rows[0];
-                        txtValor.Text = dr["valor_plano"].ToString();
-                        txtPlanoEscolhido.Text = dr["nome_plano"].ToString();
-                        txtDescricao.Text = dr["observacao"].ToString();
-                        txtID_Plano.Text = dr["id_plano"].ToString();
-                    }
-                }
-            }
-        }
+        
 
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (txtDescricao.Text == "")
-            {
-                MessageBox.Show("Selecione um plano");
-            }
-            else if (txtNome.Text == "")
-            {
-                MessageBox.Show("Selecione um aluno");
-            }
-            else
-            {
-                int pagamentosExistentes = 0;
-                using (SqlConnection conn = CreateConnection())
-                {
-                    conn.Open();
-                    int mesAtual = DateTime.Now.Year * 10000 + DateTime.Now.Month * 100 + 1;
-                    int proximoMes = DateTime.Now.AddMonths(1).Year * 10000 + DateTime.Now.AddMonths(1).Month * 100 + 1;
-
-                    SqlCommand verificaCmd = new SqlCommand(
-                        "SELECT COUNT(*) FROM tbl_pagamento WHERE id_aluno = @id_aluno AND dataVencimento >= @mesAtual AND dataVencimento < @proximoMes",
-                        conn);
-                    verificaCmd.Parameters.AddWithValue("@id_aluno", int.Parse(txtID_Aluno.Text));
-                    verificaCmd.Parameters.AddWithValue("@mesAtual", mesAtual);
-                    verificaCmd.Parameters.AddWithValue("@proximoMes", proximoMes);
-
-                    pagamentosExistentes = (int)verificaCmd.ExecuteScalar();
-                }
-
-                if (pagamentosExistentes > 0)
-                {
-                    MessageBox.Show("Este aluno já possui um pagamento para este mês", "Ops", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    DialogResult confirm = MessageBox.Show("Deseja gerar um novo pagamento mesmo assim?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    if (confirm == DialogResult.No)
-                    {
-                        return;
-                    }
-                }
-                try
-                {
-                    DateTime dataPagamento = DateTime.Now;
-                    DateTime dataVencimento = dataPagamento.AddMonths(1);
-
-                    int dataPagamentoInt = ConvertToIntDate(dataPagamento);
-                    int dataVencimentoInt = ConvertToIntDate(dataVencimento);
-
-                    using (SqlConnection conn = CreateConnection())
-                    {
-                        conn.Open();
-                        string insertQuery = @"INSERT INTO tbl_pagamento (id_pagamento, dataPagamento, dataVencimento, valor, id_aluno, id_plano) 
-                                             VALUES ((SELECT ISNULL(MAX(id_pagamento), 0) + 1 FROM tbl_pagamento), 
-                                             @dataPagamento, @dataVencimento, @valor, @id_aluno, @id_plano)";
-
-                        SqlCommand comando = new SqlCommand(insertQuery, conn);
-                        comando.Parameters.AddWithValue("@dataPagamento", dataPagamentoInt);
-                        comando.Parameters.AddWithValue("@dataVencimento", dataVencimentoInt);
-                        comando.Parameters.AddWithValue("@valor", decimal.Parse(txtValor.Text));
-                        comando.Parameters.AddWithValue("@id_aluno", int.Parse(txtID_Aluno.Text));
-                        comando.Parameters.AddWithValue("@id_plano", int.Parse(txtID_Plano.Text));
-
-                        int rowsAffected = comando.ExecuteNonQuery();
-
-                        if (rowsAffected == 1)
-                        {
-                            string updateAluno = "UPDATE tbl_aluno SET data_pg = @dataPagamento WHERE id_aluno = @id_aluno";
-                            comando = new SqlCommand(updateAluno, conn);
-                            comando.Parameters.AddWithValue("@dataPagamento", dataPagamento);
-                            comando.Parameters.AddWithValue("@id_aluno", int.Parse(txtID_Aluno.Text));
-                            comando.ExecuteNonQuery();
-
-                            MessageBox.Show("Pagamento realizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            LimparCampos();
-                        }
-                    }
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Erro ao realizar pagamento: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void LimparCampos()
-        {
-            txtPlanoEscolhido.Clear();
-            txtDescricao.Clear();
-            txtValor.Clear();
-            txtID_Aluno.Clear();
-            txtID_Plano.Clear();
-            txtCPF.Clear();
-            txtNome.Clear();
-            lbPlanos.SelectedIndex = -1;
-        }
+        
 
         private void dgPesquisaAluno_MouseClick(object sender, MouseEventArgs e)
         {
             txtNome.Text = dgPesquisaAluno.CurrentRow.Cells[0].Value.ToString();
             txtCPF.Text = dgPesquisaAluno.CurrentRow.Cells[1].Value.ToString();
             txtID_Aluno.Text = dgPesquisaAluno.CurrentRow.Cells[2].Value.ToString();
+
+            using (SqlConnection conn = CreateConnection())
+            {
+                conn.Open();
+
+                string sql = @"SELECT TOP 1 *
+                       FROM tbl_plano
+                       WHERE id_aluno = @idAluno";
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@idAluno", txtID_Aluno.Text);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+            }
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -241,6 +130,90 @@ namespace Cadastro_de_Alunos
                 DataView dv = dt.DefaultView;
                 dv.RowFilter = string.Format("cpf like '%{0}%'", textBox2.Text);
                 dgPesquisaAluno.DataSource = dv.ToTable();
+            }
+        }
+
+        private void btnVerifica_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtID_Aluno.Text))
+            {
+                MessageBox.Show("Selecione um aluno primeiro!");
+                return;
+            }
+
+            using (SqlConnection conn = CreateConnection())
+            {
+                conn.Open();
+
+                string sql = @"SELECT
+                                p.nome_plano,
+                                p.valor_plano,
+                                p.observacao,
+                                pg.id_pagamento,
+                                pg.dataPagamento,
+                                pg.dataVencimento,
+                                pg.valor
+                            FROM tbl_plano p
+                            INNER JOIN tbl_pagamento pg
+                                ON p.id_plano = pg.id_plano
+                            WHERE p.id_aluno = @idAluno";
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@idAluno", txtID_Aluno.Text);
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    int dataPagamento = Convert.ToInt32(dr["dataPagamento"]);
+                    int dataVencimento = Convert.ToInt32(dr["dataVencimento"]);
+
+                    DateTime dtPagamento = DateTime.ParseExact(
+                        dataPagamento.ToString(),
+                        "yyyyMMdd",
+                        null);
+
+                    DateTime dtVencimento = DateTime.ParseExact(
+                        dataVencimento.ToString(),
+                        "yyyyMMdd",
+                        null);
+
+                    string situacao =
+                        DateTime.Now.Date <= dtVencimento.Date
+                            ? "ATIVO"
+                            : "VENCIDO";
+
+                    string mensagem =
+                        "PLANO DO ALUNO\n\n" +
+
+                        "Plano: " + dr["nome_plano"] + "\n" +
+                        "Valor do Plano: R$ " + dr["valor_plano"] + "\n" +
+                        "Descrição: " + dr["observacao"] + "\n\n" +
+
+                        "PAGAMENTO\n\n" +
+
+                        "ID Pagamento: " + dr["id_pagamento"] + "\n" +
+                        "Valor Pago: R$ " + dr["valor"] + "\n" +
+                        "Data Pagamento: " + dtPagamento.ToString("dd/MM/yyyy") + "\n" +
+                        "Vencimento: " + dtVencimento.ToString("dd/MM/yyyy") + "\n" +
+                        "Situação: " + situacao;
+
+                    MessageBox.Show(
+                        mensagem,
+                        "Situação do Plano",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                }
+                else
+                {
+                    MessageBox.Show(
+                        "Este aluno não possui plano cadastrado.",
+                        "Situação do Plano",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                }
             }
         }
     }

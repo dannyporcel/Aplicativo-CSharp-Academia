@@ -919,7 +919,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1173, 636);
             this.ControlBox = false;
-            this.Controls.Add(this.panQuestionario);
             this.Controls.Add(this.txtFotoLocal);
             this.Controls.Add(this.btnSelecFoto);
             this.Controls.Add(this.gbFoto);
@@ -931,6 +930,7 @@
             this.Controls.Add(this.btnVoltar);
             this.Controls.Add(this.btnAvancar);
             this.Controls.Add(this.btnCadastroCasoInativoSelecionado);
+            this.Controls.Add(this.panQuestionario);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
